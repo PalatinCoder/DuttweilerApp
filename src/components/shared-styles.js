@@ -43,18 +43,5 @@ export const SharedStyles = html`
       font-size: 36px;
     }
   }
-
-  .circle {
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 50%;
-    background: var(--app-primary-color);
-    color: var(--app-light-text-color);
-    font-size: 30px;
-    line-height: 64px;
-  }
 </style>
 `;
