@@ -16,7 +16,7 @@ export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
 
 export const navigate = (path) => (dispatch) => {
   // Extract the page name from path.
-  const page = path === '/' ? 'view1' : path.slice(1);
+  const page = path === '/' ? 'about' : path.slice(1);
 
   // Any other info you might want to extract from the path (like page type),
   // you can do here
@@ -28,8 +28,8 @@ export const navigate = (path) => (dispatch) => {
 
 const loadPage = (page) => async (dispatch) => {
   switch(page) {
-    case 'view1':
-      await import('../components/my-view1.js');
+    case 'about':
+      await import('../components/about-view.js');
       // Put code here that you want it to run every time when
       // navigate to view1 page and my-view1.js is loaded
       break;
