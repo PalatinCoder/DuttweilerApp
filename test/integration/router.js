@@ -32,16 +32,16 @@ describe('routing tests', function() {
 
   it('the page selector switches pages', async function() {
     await page.goto(`${appUrl}`);
-    await page.waitForSelector('my-app', {visible: true});
+    await page.waitForSelector('duttweiler-app', {visible: true});
 
-    await testNavigation(page, 'view2', 'View Two');
-    await testNavigation(page, 'view3', 'View Three');
-    await testNavigation(page, 'view1', 'View One');
+    await testNavigation(page, 'news', 'Nachrichten');
+    await testNavigation(page, 'events', 'Veranstaltungen');
+    await testNavigation(page, 'about', 'Über');
   });
 
   it('the page selector switches pages in a different way', async function() {
     await page.goto(`${appUrl}`);
-    await page.waitForSelector('my-app', {visible: true});
+    await page.waitForSelector('duttweiler-app', {visible: true});
 
     // Setup
     await page.evaluate(() => {
@@ -59,9 +59,9 @@ describe('routing tests', function() {
       console.log(window.deepQuerySelector);
     });
 
-    await testNavigationInADifferentWay(page, 'view2', 'View Two');
-    await testNavigationInADifferentWay(page, 'view3', 'View Three');
-    await testNavigationInADifferentWay(page, 'view1', 'View One');
+    await testNavigationInADifferentWay(page, 'news', 'Nachrichten');
+    await testNavigationInADifferentWay(page, 'events', 'Veranstaltungen');
+    await testNavigationInADifferentWay(page, 'about', 'Über');
   });
 });
 
@@ -78,7 +78,7 @@ async function testNavigation(page, href, linkText) {
   const shadowSelector = `a[href="/${href}"]`;
 
   // Does the link say the right thing?
-  const myApp = await page.$('my-app');
+  const myApp = await page.$('duttweiler-app');
   const myText = await page.evaluate(getShadowRootChildProp, myApp, selector, 'textContent');
   expect(await myText).equal(linkText);
 
@@ -89,7 +89,7 @@ async function testNavigation(page, href, linkText) {
 }
 
 async function testNavigationInADifferentWay(page, href, linkText) {
-  const query = `my-app::shadow a[href="/${href}"]`;
+  const query = `duttweiler-app::shadow a[href="/${href}"]`;
 
   const linkHandle = await page.evaluateHandle((query) => window.deepQuerySelector(query), query);
   const text = await page.evaluate((el) => el.textContent, linkHandle);
