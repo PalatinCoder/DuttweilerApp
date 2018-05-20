@@ -1,11 +1,11 @@
 {
-  "name": "pwa-starter-kit",
-  "version": "0.8.0",
+  "name": "duttweiler-app",
+  "version": "0.0.1-alpha",
   "contributors": [
-    "The Polymer Authors"
+    "Jan Syring-Lingenfelder"
   ],
-  "license": "BSD-3-Clause",
-  "repository": "Polymer/pwa-starter-kit",
+  "license": "proprietary",
+  "repository": "PalatinCoder/DuttweilerApp",
   "scripts": {
     "start": "polymer serve",
     "build": "npm run build:prpl-server && npm run build:static",
