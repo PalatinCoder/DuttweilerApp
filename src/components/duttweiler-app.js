@@ -186,7 +186,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     </app-header>
 
     <!-- Drawer content -->
-    <app-drawer opened="${_drawerOpened}"
+    <app-drawer swipe-open opened="${_drawerOpened}"
         on-opened-changed="${e => store.dispatch(updateDrawerState(e.target.opened))}">
       <nav class="drawer-list">
         <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
