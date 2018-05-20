@@ -63,7 +63,29 @@ describe('routing tests', function() {
     await testNavigationInADifferentWay(page, 'events', 'Veranstaltungen');
     await testNavigationInADifferentWay(page, 'about', 'Über');
   });
+  
+  it('switching the page shows the right views', async function() {
+    await page.goto(`${appUrl}`);
+    await page.waitForSelector('duttweiler-app', {visible: true});
+    
+    await testViewRouting(page, 'news', 'news-view');
+    await testViewRouting(page, 'events', 'my-view404');
+    await testViewRouting(page, 'about', 'about-view');
+    await testViewRouting(page, 'lizard', 'my-view404');
+  });
 });
+
+async function testViewRouting(page, href, viewName) {
+  const getShadowRootChildProp = (el, childSelector, prop) => {
+    return el.shadowRoot.querySelector(childSelector)[prop];
+  };
+  
+  await page.goto(`${appUrl}/${href}`);
+  
+  const myApp = await page.$('duttweiler-app');
+  const activeViewTagName = await page.evaluate(getShadowRootChildProp, myApp, '.page[active]', 'tagName');
+  expect(activeViewTagName).equal(viewName.toUpperCase());
+}
 
 async function testNavigation(page, href, linkText) {
   // Shadow DOM helpers.
