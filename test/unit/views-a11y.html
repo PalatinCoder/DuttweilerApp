@@ -27,9 +27,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Import the element to test -->
     <script type="module" src="../../src/components/about-view.js"></script>
+    <script type="module" src="../../src/components/news-view.js"></script>
     <script type="module" src="../../src/components/my-view404.js"></script>
   </head>
   <body>
+    <test-fixture id="news">
+      <template>
+        <news-view active></news-view>
+      </template>
+    </test-fixture>
     <test-fixture id="about">
       <template>
         <about-view active></about-view>
@@ -46,6 +52,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       import {axeReport} from 'pwa-helpers/axe-report.js';
 
       suite('views a11y tests', function() {
+        test('news-view', function() {
+          const el = fixture('news');
+          return axeReport(el);
+        });
+
         test('about-view', function() {
           const el = fixture('about');
           return axeReport(el);
