@@ -27,6 +27,14 @@ export const navigate = (path) => (dispatch) => {
 };
 
 const loadPage = (page) => async (dispatch) => {
+  // If the page is invalid, set to 404. The is also a good spot to check
+  // other location things like sub-path or query params.
+  if (['about'].indexOf(page) === -1) {
+    page = 'view404';
+  }
+
+  dispatch(updatePage(page));
+
   switch(page) {
     case 'about':
       await import('../components/about-view.js');
@@ -34,11 +42,8 @@ const loadPage = (page) => async (dispatch) => {
       // navigate to view1 page and my-view1.js is loaded
       break;
     default:
-      page = 'view404';
       await import('../components/my-view404.js');
   }
-
-  dispatch(updatePage(page));
 }
 
 const updatePage = (page) => {
