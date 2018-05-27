@@ -63,7 +63,7 @@ describe('routing tests', function() {
     await testNavigationInADifferentWay(page, 'events', 'Veranstaltungen');
     await testNavigationInADifferentWay(page, 'about', 'Über');
   });
-  
+
   it('switching the page shows the right views', async function() {
     await testViewRouting(page, 'news', 'my-view404');
     await testViewRouting(page, 'events', 'my-view404');
@@ -76,13 +76,13 @@ async function testViewRouting(page, href, viewName) {
   const getShadowRootChildProp = (el, childSelector, prop) => {
     return el.shadowRoot.querySelector(childSelector)[prop];
   };
-  
+
   await page.goto(`${appUrl}/${href}`);
   await page.waitForSelector('duttweiler-app', {visible: true});
-  
+
   const myApp = await page.$('duttweiler-app');
-  const activeViewTagName = await page.evaluate(getShadowRootChildProp, myApp, '.page[active]', 'tagName');
-  expect(await activeViewTagName).equal(viewName.toUpperCase());
+  const activeViewTagName = await page.evaluate(getShadowRootChildProp, myApp, '.page[active]', 'localName');
+  expect(await activeViewTagName).equal(viewName);
 }
 
 async function testNavigation(page, href, linkText) {
