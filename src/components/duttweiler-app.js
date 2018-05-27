@@ -122,6 +122,10 @@ class DuttweilerApp extends connect(store)(LitElement) {
         padding: 0 24px;
       }
 
+      .drawer-list > a:focus {
+        outline: none;
+      }
+
       .drawer-list > a[selected] {
         color: var(--app-drawer-selected-color);
       }
