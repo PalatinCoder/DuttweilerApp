@@ -37,8 +37,14 @@ class DuttweilerApp extends connect(store)(LitElement) {
         --app-drawer-width: 256px;
         display: block;
 
-        --app-primary-color: #3f51b5;
-        --app-secondary-color: #303f9f;
+
+        /* These are primarily for the paper-* components, in the future some cleaning-up is needed here! */
+        --primary-color: #3f51b5;
+        --dark-primary-color: #303f9f;
+
+
+        --app-primary-color: var(--primary-color);
+        --app-secondary-color: var(--dark-primary-color);
         --app-dark-text-color: var(--app-secondary-color);
         --app-light-text-color: white;
         --app-section-even-color: #f7f7f7;
