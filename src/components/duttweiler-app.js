@@ -185,6 +185,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       <nav class="toolbar-list">
       <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
       <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
+      <a selected?="${_page === 'settings'}" href="/settings">Einstellungen</a>
       <a selected?="${_page === 'about'}" href="/about">Über</a>
       </nav>
     </app-header>
@@ -195,6 +196,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       <nav class="drawer-list">
         <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
         <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
+        <a selected?="${_page === 'settings'}" href="/settings">Einstellungen</a>
         <a selected?="${_page === 'about'}" href="/about">Über</a>
       </nav>
     </app-drawer>
@@ -202,6 +204,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     <!-- Main content -->
     <main class="main-content">
       <about-view class="page" active?="${_page === 'about'}"></about-view>
+      <settings-view class="page" active?="${_page === 'settings'}"></settings-view>
       <my-view404 class="page" active?="${_page === 'view404'}"></my-view404>
     </main>
 
