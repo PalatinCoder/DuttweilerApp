@@ -36,6 +36,7 @@ describe('routing tests', function() {
 
     await testNavigation(page, 'news', 'Nachrichten');
     await testNavigation(page, 'events', 'Veranstaltungen');
+    await testNavigation(page, 'settings', 'Einstellungen');
     await testNavigation(page, 'about', 'Über');
   });
 
@@ -61,6 +62,7 @@ describe('routing tests', function() {
 
     await testNavigationInADifferentWay(page, 'news', 'Nachrichten');
     await testNavigationInADifferentWay(page, 'events', 'Veranstaltungen');
+    await testNavigationInADifferentWay(page, 'settings', 'Einstellungen');
     await testNavigationInADifferentWay(page, 'about', 'Über');
   });
 
@@ -68,6 +70,7 @@ describe('routing tests', function() {
     await testViewRouting(page, 'news', 'my-view404');
     await testViewRouting(page, 'events', 'my-view404');
     await testViewRouting(page, 'about', 'about-view');
+    await testViewRouting(page, 'settings', 'settings-view');
     await testViewRouting(page, 'lizard', 'my-view404');
   });
 });
