@@ -1,0 +1,54 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "label": "Test: integration tests",
+            "script": "test:integration",
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "type": "npm",
+            "label": "Test: unit tests",
+            "script": "test:unit",
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "type": "npm",
+            "label": "Test: run all",
+            "script": "test",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "npm",
+            "label": "Start dev server",
+            "script": "start",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Build and Deploy [!]",
+            "command": "npm run build:static && firebase deploy",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "type": "npm",
+            "label": "Build",
+            "script": "build:static",
+            "problemMatcher": []
+        }
+    ]
+}
