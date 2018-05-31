@@ -1,6 +1,7 @@
 import { html } from '@polymer/lit-element';
 import { SharedStyles } from './shared-styles.js';
 import { PageViewElement } from './page-view-element.js';
+import { Switch } from '@material/mwc-switch';
 
 class SettingsView extends PageViewElement {
   _render(props) {
@@ -10,9 +11,9 @@ class SettingsView extends PageViewElement {
         .grid {
           display: grid;
           grid-template-columns: 2fr minmax(max-content, 1fr);
-          grid-gap: 2em 1em;
+          grid-gap: 16px;
         }
-        .grid paper-toggle-button {
+        .grid mwc-switch {
           justify-self: end;
         }
         .description {
@@ -25,11 +26,11 @@ class SettingsView extends PageViewElement {
           <div>
             Push-Benachrichtigungen
             <div class="description">Empfange Benachrichtigungen bei neuen Nachrichtenmeldungen</div>
-          </div>
+          </div><mwc-switch checked></mwc-switch>
           <div>
             Digitale Ortsrufanlage
             <div class="description">Empfange kurzfristige Meldungen über die &bdquo;digitale Ortsrufanlage&ldquo;</div>
-          </div>
+          </div><mwc-switch checked></mwc-switch>
         </div>
       </section>
     `;
