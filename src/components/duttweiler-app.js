@@ -52,6 +52,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
         --app-drawer-text-color: var(--app-light-text-color);
         --app-drawer-selected-color: #78909C;
       }
+      @media (min-width: 768px) {
+        :host {
+          --app-drawer-width: 384px;
+        }
+      }
 
       app-header {
         position: fixed;
@@ -149,28 +154,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
         color: var(--app-drawer-text-color);
         text-align: center;
       }
-
-      /* Wide layout: when the viewport width is bigger than 460px, layout
-      changes to a wide layout. */
-      @media (min-width: 460px) {
-        .toolbar-list {
-          display: block;
-        }
-
-        .menu-btn {
-          display: none;
-        }
-
-        .main-content {
-          padding-top: 107px;
-        }
-
-        /* The drawer button isn't shown in the wide layout, so we need
-        to offset the title */
-        [main-title] {
-          padding-left: 44px;
-        }
-      }
     </style>
 
     <!-- Header -->
@@ -180,13 +163,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
         <div main-title>${appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
-
-      <!-- This gets hidden on a small screen-->
-      <nav class="toolbar-list">
-      <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
-      <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
-      <a selected?="${_page === 'about'}" href="/about">Über</a>
-      </nav>
     </app-header>
 
     <!-- Drawer content -->
