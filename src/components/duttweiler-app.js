@@ -110,6 +110,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
         margin: 7px;
       }
 
+      app-drawer {
+        /* Preventively elevate the drawer above everything else */
+        z-index: 999;
+      }
+
       .drawer-list {
         box-sizing: border-box;
         width: 100%;
