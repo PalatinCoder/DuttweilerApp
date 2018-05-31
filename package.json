@@ -20,14 +20,14 @@
     "test:regenerate_screenshots": "mocha test/integration/screenshots-baseline/regenerate.js --timeout=15000"
   },
   "dependencies": {
+    "@material/mwc-switch": "^0.1.1",
     "@polymer/app-layout": "^3.0.0-pre.19",
     "@polymer/lit-element": "^0.5.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "pwa-helpers": "^0.8.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "@material/mwc-switch": "^0.1.1"
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "axe-core": "^3.0.0",
