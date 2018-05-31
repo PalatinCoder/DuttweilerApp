@@ -1,7 +1,6 @@
 import { html } from '@polymer/lit-element';
 import { SharedStyles } from './shared-styles.js';
 import { PageViewElement } from './page-view-element.js';
-import '@polymer/paper-toggle-button';
 
 class SettingsView extends PageViewElement {
   _render(props) {
@@ -26,11 +25,11 @@ class SettingsView extends PageViewElement {
           <div>
             Push-Benachrichtigungen
             <div class="description">Empfange Benachrichtigungen bei neuen Nachrichtenmeldungen</div>
-          </div><paper-toggle-button checked></paper-toggle-button>
+          </div>
           <div>
             Digitale Ortsrufanlage
             <div class="description">Empfange kurzfristige Meldungen über die &bdquo;digitale Ortsrufanlage&ldquo;</div>
-          </div><paper-toggle-button checked></paper-toggle-button>
+          </div>
         </div>
       </section>
     `;
