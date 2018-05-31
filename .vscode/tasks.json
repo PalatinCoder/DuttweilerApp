@@ -40,7 +40,7 @@
         {
             "type": "shell",
             "label": "Build and Deploy [!]",
-            "command": "npm run build:static && firebase deploy",
+            "command": "npm run build:static ; firebase deploy",
             "problemMatcher": [],
             "group": "build"
         },
