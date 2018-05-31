@@ -26,10 +26,10 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { updateMetadata } from 'pwa-helpers/metadata.js';
 
 import { store } from '../store.js';
-import { navigate, updateOffline, updateDrawerState, updateLayout } from '../actions/app.js';
+import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
-  _render({appTitle, _page, _drawerOpened, _snackbarOpened, _offline}) {
+  _render({appTitle, _page, _drawerOpened, _drawerPersistent, _snackbarOpened, _offline}) {
     // Anything that's related to rendering should be done in here.
     return html`
     <style>
@@ -56,6 +56,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
         :host {
           --app-drawer-width: 384px;
         }
+      }
+      @media (min-width: 1440px) {
+        /* large screen -> drawer is persistent, so we need some margin on the left to keep the content centered */
+        main { margin-left: var(--app-drawer-width); }
+        [main-title] { padding-left: calc(var(--app-drawer-width) - 60px); /* 60px = 16px margin from the app-toolbar and 44px from the menu button */}
       }
 
       app-header {
@@ -164,15 +169,17 @@ class DuttweilerApp extends connect(store)(LitElement) {
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
-        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState(true))}">${menuIcon}</button>
+        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState({opened: true}))}">${menuIcon}</button>
         <div main-title>${appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
     </app-header>
 
     <!-- Drawer content -->
-    <app-drawer swipe-open opened="${_drawerOpened}"
-        on-opened-changed="${e => store.dispatch(updateDrawerState(e.target.opened))}">
+    <app-drawer swipe-open 
+        opened="${_drawerPersistent ? true : _drawerOpened /* persistent drawer is always open */}"
+        on-opened-changed="${e => store.dispatch(updateDrawerState({opened: e.target.opened}))}"
+        persistent="${_drawerPersistent}">
       <nav class="drawer-list">
         <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
         <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
@@ -196,6 +203,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _drawerOpened: Boolean,
+      _drawerPersistent: Boolean,
       _snackbarOpened: Boolean,
       _offline: Boolean
     }
@@ -211,8 +219,9 @@ class DuttweilerApp extends connect(store)(LitElement) {
   _firstRendered() {
     installRouter((location) => store.dispatch(navigate(window.decodeURIComponent(location.pathname))));
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
-    installMediaQueryWatcher(`(min-width: 460px)`,
-        (matches) => store.dispatch(updateLayout(matches)));
+    installMediaQueryWatcher(`(min-width: 1440px)`,
+        /* persist the drawer if the query matches */
+        (matches) => store.dispatch(updateDrawerState({persistent: matches})));
   }
 
   _didRender(properties, changeList) {
@@ -231,6 +240,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     this._offline = state.app.offline;
     this._snackbarOpened = state.app.snackbarOpened;
     this._drawerOpened = state.app.drawerOpened;
+    this._drawerPersistent = state.app.drawerPersistent;
   }
 }
 

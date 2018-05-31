@@ -23,7 +23,7 @@ export const navigate = (path) => (dispatch) => {
   dispatch(loadPage(page));
 
   // Close the drawer - in case the *path* change came from a link in the drawer.
-  dispatch(updateDrawerState(false));
+  dispatch(updateDrawerState({opened: false}));
 };
 
 const loadPage = (page) => async (dispatch) => {
@@ -75,17 +75,17 @@ export const updateOffline = (offline) => (dispatch, getState) => {
   });
 };
 
-export const updateLayout = (wide) => (dispatch, getState) => {
-  if (getState().app.drawerOpened) {
-    dispatch(updateDrawerState(false));
-  }
-}
-
-export const updateDrawerState = (opened) => (dispatch, getState) => {
-  if (getState().app.drawerOpened !== opened) {
-    dispatch({
-      type: UPDATE_DRAWER_STATE,
-      opened
-    });
-  }
-}
+/**
+ * Set the desired drawer state, which includes if the drawer is currently opened and if it's persistent
+ * @param state Describes the desired drawer state. Can contain one or more of the following fields:
+ * @param {boolean} [state.opened] If the drawer should be open
+ * @param {boolean} [state.persistent] - If the drawer should be persisted (i.e. fixed open on the left side)
+ */
+export const updateDrawerState = (state) => (dispatch, getState) => {
+  /* Don't change the actual value in the store if it's not changed (i.e. in the new state) */
+  dispatch({
+    type: UPDATE_DRAWER_STATE,
+      persistent: state.persistent === undefined ? getState().app.drawerPersistent : state.persistent,
+      opened: state.opened === undefined ? getState().app.drawerOpened : state.opened
+  });
+};
