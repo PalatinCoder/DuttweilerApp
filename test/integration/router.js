@@ -26,6 +26,8 @@ describe('routing tests', function() {
   beforeEach(async function() {
     browser = await puppeteer.launch();
     page = await browser.newPage();
+    // should probably test on mobile size?
+    await page.setViewport({width: 1920, height: 1080});
   });
 
   afterEach(() => browser.close());

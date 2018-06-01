@@ -16,7 +16,7 @@ import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
-import { menuIcon } from './my-icons.js';
+import { Icon } from '@material/mwc-icon';
 import './snack-bar.js';
 
 import { connect } from 'pwa-helpers/connect-mixin.js';
@@ -26,10 +26,10 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { updateMetadata } from 'pwa-helpers/metadata.js';
 
 import { store } from '../store.js';
-import { navigate, updateOffline, updateDrawerState, updateLayout } from '../actions/app.js';
+import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
-  _render({appTitle, _page, _drawerOpened, _snackbarOpened, _offline}) {
+  _render({appTitle, _page, _drawerOpened, _drawerPersistent, _snackbarOpened, _offline}) {
     // Anything that's related to rendering should be done in here.
     return html`
     <style>
@@ -51,6 +51,16 @@ class DuttweilerApp extends connect(store)(LitElement) {
         --app-drawer-background-color: var(--app-secondary-color);
         --app-drawer-text-color: var(--app-light-text-color);
         --app-drawer-selected-color: #78909C;
+      }
+      @media (min-width: 768px) {
+        :host {
+          --app-drawer-width: 384px;
+        }
+      }
+      @media (min-width: 1440px) {
+        /* large screen -> drawer is persistent, so we need some margin on the left to keep the content centered */
+        main { margin-left: var(--app-drawer-width); }
+        [main-title] { padding-left: calc(var(--app-drawer-width) - 60px); /* 60px = 16px margin from the app-toolbar and 44px from the menu button */}
       }
 
       app-header {
@@ -93,7 +103,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       .menu-btn {
         background: none;
         border: none;
-        fill: var(--app-header-text-color);
+        color: var(--app-header-text-color);
         cursor: pointer;
         height: 44px;
         width: 44px;
@@ -103,6 +113,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
         width: 30px;
         height: 30px;
         margin: 7px;
+      }
+
+      app-drawer {
+        /* Preventively elevate the drawer above everything else */
+        z-index: 999;
       }
 
       .drawer-list {
@@ -120,6 +135,10 @@ class DuttweilerApp extends connect(store)(LitElement) {
         color: var(--app-drawer-text-color);
         line-height: 40px;
         padding: 0 24px;
+      }
+
+      .drawer-list > a:focus, app-toolbar *:focus {
+        outline: none;
       }
 
       .drawer-list > a[selected] {
@@ -145,49 +164,22 @@ class DuttweilerApp extends connect(store)(LitElement) {
         color: var(--app-drawer-text-color);
         text-align: center;
       }
-
-      /* Wide layout: when the viewport width is bigger than 460px, layout
-      changes to a wide layout. */
-      @media (min-width: 460px) {
-        .toolbar-list {
-          display: block;
-        }
-
-        .menu-btn {
-          display: none;
-        }
-
-        .main-content {
-          padding-top: 107px;
-        }
-
-        /* The drawer button isn't shown in the wide layout, so we need
-        to offset the title */
-        [main-title] {
-          padding-left: 44px;
-        }
-      }
     </style>
 
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
-        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState(true))}">${menuIcon}</button>
+        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
         <div main-title>${appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
-
-      <!-- This gets hidden on a small screen-->
-      <nav class="toolbar-list">
-      <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
-      <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
-      <a selected?="${_page === 'about'}" href="/about">Über</a>
-      </nav>
     </app-header>
 
     <!-- Drawer content -->
-    <app-drawer swipe-open opened="${_drawerOpened}"
-        on-opened-changed="${e => store.dispatch(updateDrawerState(e.target.opened))}">
+    <app-drawer swipe-open 
+        opened="${_drawerPersistent ? true : _drawerOpened /* persistent drawer is always open */}"
+        on-opened-changed="${e => store.dispatch(updateDrawerState({opened: e.target.opened}))}"
+        persistent="${_drawerPersistent}">
       <nav class="drawer-list">
         <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
         <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
@@ -212,6 +204,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       appTitle: String,
       _page: String,
       _drawerOpened: Boolean,
+      _drawerPersistent: Boolean,
       _snackbarOpened: Boolean,
       _offline: Boolean
     }
@@ -227,8 +220,9 @@ class DuttweilerApp extends connect(store)(LitElement) {
   _firstRendered() {
     installRouter((location) => store.dispatch(navigate(window.decodeURIComponent(location.pathname))));
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
-    installMediaQueryWatcher(`(min-width: 460px)`,
-        (matches) => store.dispatch(updateLayout(matches)));
+    installMediaQueryWatcher(`(min-width: 1440px)`,
+        /* persist the drawer if the query matches */
+        (matches) => store.dispatch(updateDrawerState({persistent: matches})));
   }
 
   _didRender(properties, changeList) {
@@ -247,6 +241,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     this._offline = state.app.offline;
     this._snackbarOpened = state.app.snackbarOpened;
     this._drawerOpened = state.app.drawerOpened;
+    this._drawerPersistent = state.app.drawerPersistent;
   }
 }
 

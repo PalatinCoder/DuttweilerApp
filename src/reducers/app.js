@@ -26,8 +26,9 @@ const app = (state = {drawerOpened: false}, action) => {
     case UPDATE_DRAWER_STATE:
       return {
         ...state,
-        drawerOpened: action.opened
-      }
+        drawerOpened: action.opened,
+        drawerPersistent: action.persistent
+      };
     case OPEN_SNACKBAR:
       return {
         ...state,
