@@ -16,7 +16,7 @@ import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
-import { menuIcon } from './my-icons.js';
+import { Icon } from '@material/mwc-icon';
 import './snack-bar.js';
 
 import { connect } from 'pwa-helpers/connect-mixin.js';
@@ -103,7 +103,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       .menu-btn {
         background: none;
         border: none;
-        fill: var(--app-header-text-color);
+        color: var(--app-header-text-color);
         cursor: pointer;
         height: 44px;
         width: 44px;
@@ -169,7 +169,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
-        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState({opened: true}))}">${menuIcon}</button>
+        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
         <div main-title>${appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
