@@ -5,6 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Dev server :: Firefox",
+            "url": "http://localhost:8081/",
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**"
+            ],
+            "log": {
+                "consoleLevel": {
+                    "default": "Warn"
+                }
+            }
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Integration tests :: Routing",

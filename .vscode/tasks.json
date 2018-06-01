@@ -29,7 +29,7 @@
         },
         {
             "type": "npm",
-            "label": "Start dev server",
+            "label": "Dev server",
             "script": "start",
             "problemMatcher": [],
             "group": {
