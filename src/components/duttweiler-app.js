@@ -137,7 +137,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
         padding: 0 24px;
       }
 
-      .drawer-list > a:focus {
+      .drawer-list > a:focus, app-toolbar *:focus {
         outline: none;
       }
 
