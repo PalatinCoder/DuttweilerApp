@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Dev Server :: Chrome",
+            "url": "http://localhost:8081",
+            "webRoot": "${workspaceFolder}",
+            "smartStep": true,
+            "showAsyncStacks": true
+        },
+        {
             "type": "firefox",
             "request": "launch",
             "reAttach": true,
@@ -14,6 +23,10 @@
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**"
             ],
+            "reloadOnChange": {
+                "watch": "${workspaceFolder}/**/*.js",
+                "ignore": "**/node_modules/**"
+            },
             "log": {
                 "consoleLevel": {
                     "default": "Warn"
