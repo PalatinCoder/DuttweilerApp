@@ -21,14 +21,12 @@ const receiveData = (endpoint, data) => {
     }
 }
 
-const invalidateData = (endpoint) => {
+export const invalidateData = (endpoint) => {
     return {
         type: INVALIDATE_DATA,
         endpoint
     }
 }
-
-// TODO: functional invalidateData
 
 const fetchData = (endpoint) => (dispatch) => {
     dispatch(requestData(endpoint))
