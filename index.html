@@ -80,7 +80,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       window.process = { env: { NODE_ENV: 'production' } };
 
       // Set the API Url - this is kind of nasty, if you know a better solution feel free to reach out to me
+      if (window.location.hostname == 'localhost') {
+        window.duttweilerapp = { apiroot: 'http://localhost:3000' };
+      } else {
         window.duttweilerapp = { apiroot: 'https://www.duttweiler.de/api' };
+      }
     </script>
 
     <!-- Add any global styles for body, document, etc. -->

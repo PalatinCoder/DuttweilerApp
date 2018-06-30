@@ -39,6 +39,15 @@
         },
         {
             "type": "shell",
+            "label": "Dev: Mock API",
+            "command": "node loader",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/mock-api"
+            }
+        },
+        {
+            "type": "shell",
             "label": "Build and Deploy [!]",
             "command": "npm run build:static ; firebase deploy",
             "problemMatcher": [],
