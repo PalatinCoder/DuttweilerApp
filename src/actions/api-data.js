@@ -30,7 +30,7 @@ export const invalidateData = (endpoint) => {
 
 const fetchData = (endpoint) => (dispatch) => {
     dispatch(requestData(endpoint))
-    return fetch(`https://www.duttweiler.de/api/${endpoint}.json`)
+      return fetch(`${window.duttweilerapp.apiroot}/${endpoint}.json`)
         .then(
             response => response.json(),
             error => console.log('ERR: ', error)
