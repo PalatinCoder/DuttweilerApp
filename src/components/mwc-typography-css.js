@@ -1,0 +1,1 @@
+D:/Dev/PWA/material-components-web-components/packages/typography/mwc-typography-css.js

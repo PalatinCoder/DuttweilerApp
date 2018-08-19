@@ -5,26 +5,31 @@ import { PageViewElement } from './page-view-element.js';
 import { SharedStyles } from './shared-styles.js';
 import { store } from '../store';
 import { fetchDataIfNeeded, invalidateData } from '../actions/api-data.js';
-import { Fab } from "@material/mwc-fab";
+import { Fab } from '@material/mwc-fab';
+import { NewsCard } from './news-card';
 
 class NewsView extends connect(store)(PageViewElement) {
   _render({_items = [], _isFetching}) {
     return html`
-      ${SharedStyles}
       <style>
+        :host {
+          display: flex !important;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        news-card {
+          margin: 1em;
+        }
         mwc-fab {
           position: fixed;
           bottom: 24px;
           right: 24px;
         }
       </style>
-      <section>
-        <h2>Nachrichten</h2>
-        ${repeat(_items, (item) => html`
-          <h3>${item.headline}</h3>
-        `)}
-        <mwc-fab icon="refresh" label="Aktualisieren" on-click="${(e) => this._clickHandler(e)}" exited="${_isFetching}"></mwc-fab>
-      </section>
+      ${repeat(_items, (item) => html`
+        <news-card item="${item}"></news-card>
+      `)}
+      <mwc-fab icon="refresh" label="Aktualisieren" on-click="${(e) => this._clickHandler(e)}" exited="${_isFetching}"></mwc-fab>
     `
   }
 
