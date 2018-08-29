@@ -1,4 +1,10 @@
 language: node_js
+before_install: npm install -g greenkeeper-lockfile
+install: npm install
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+env:
+  - GK_LOCK_COMMIT_AMEND=true
 matrix:
   include:
   - node_js: '8'

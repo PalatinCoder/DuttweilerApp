@@ -1,0 +1,14 @@
+{
+  "groups": {
+    "pwa": {
+      "packages": [
+        "package.json"
+      ]
+    },
+    "prpl-server": {
+      "packages": [
+        "server/package.json"
+      ]
+    }
+  }
+}
