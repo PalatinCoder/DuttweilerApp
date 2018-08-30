@@ -25,3 +25,13 @@ matrix:
     - sh -e /etc/init.d/xvfb start
     script:
     - npm run test:unit
+
+deploy:
+  on:
+    tags: true
+  provider: firebase
+  project: duttweilerappgcm
+  message: $TRAVIS_TAG
+  token:
+    secure: #TOKEN#
+  
