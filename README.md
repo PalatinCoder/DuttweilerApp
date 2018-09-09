@@ -5,7 +5,6 @@
 
 # ![images/manifest/icon-48x48.png](images/manifest/icon-48x48.png) DuttweilerApp
 
+[![Web App Jetzt öffnen!](https://img.shields.io/badge/Web%20App-Jetzt%20%C3%B6ffnen!-green.svg?style=for-the-badge)](https://duttweiler.app) 
 
 Die DuttweilerApp bietet Nachrichten und den Veranstaltungskalender von duttweiler.de für das Smartphone optimiert. Zusätzlich erweitert die App das reine Anzeigen der Daten um nützliche Funktionen wie, wie z.B. Veranstaltugen zu teilen oder direkt in den eigenen Kalender zu übernehmen. Am nützlichsten ist wohl die Möglichkeit, sich via Push-Nachrichten über neue Nachriten informieren zu lassen und so immer auf dem laufenden zu bleiben.
-
-[![Web App Jetzt öffnen!](https://img.shields.io/badge/Web%20App-Jetzt%20%C3%B6ffnen!-green.svg?style=for-the-badge)](https://duttweiler.app) 
