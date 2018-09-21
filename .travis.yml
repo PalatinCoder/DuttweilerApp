@@ -27,6 +27,7 @@ jobs:
 
     - stage: deploy
       name: "Firebase (es6-bundled)"
+      if: tag IS present
       script: npm run build:static
       deploy: &firebase
         on:
