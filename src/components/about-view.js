@@ -3,7 +3,7 @@ import { SharedStyles } from './shared-styles.js';
 import { PageViewElement } from './page-view-element.js';
 
 class AboutView extends PageViewElement {
-  _render(props) {
+  render() {
     return html`
       ${SharedStyles}
       <style>
