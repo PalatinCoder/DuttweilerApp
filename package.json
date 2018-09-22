@@ -1,10 +1,10 @@
 {
   "name": "duttweiler-app",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1-alpha.4",
   "contributors": [
     "Jan Syring-Lingenfelder"
   ],
-  "license": "proprietary",
+  "license": "BSD-3-Clause",
   "repository": "PalatinCoder/DuttweilerApp",
   "scripts": {
     "start": "polymer serve",
