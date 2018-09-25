@@ -26,24 +26,19 @@ export const navigate = (path) => (dispatch) => {
   dispatch(updateDrawerState({opened: false}));
 };
 
-const loadPage = (page) => async (dispatch) => {
-  // If the page is invalid, set to 404. The is also a good spot to check
-  // other location things like sub-path or query params.
-  if (['about'].indexOf(page) === -1) {
-    page = 'view404';
-  }
-
-  dispatch(updatePage(page));
-
+const loadPage = (page) => (dispatch) => {
   switch(page) {
     case 'about':
-      await import('../components/about-view.js');
-      // Put code here that you want it to run every time when
-      // navigate to view1 page and my-view1.js is loaded
+      import('../components/about-view.js').then((module) => {
+        // Put code in here that you want to run every time when
+        // navigating to view1 after my-view1.js is loaded.
+      });
       break;
     default:
-      await import('../components/my-view404.js');
+      page = 'view404';
+      import('../components/my-view404.js');
   }
+  dispatch(updatePage(page));
 }
 
 const updatePage = (page) => {
