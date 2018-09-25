@@ -36,8 +36,7 @@
           test('news list', function() {
               store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: news_items, receivedAt: Date.now()});
               const view = fixture('news');
-              assert.ok(view.shadowRoot.querySelector('h2'), 'has heading');
-              assert.equal(view.shadowRoot.querySelectorAll('h3').length, 10, 'list has 10 entries');
+              assert.equal(view.shadowRoot.querySelectorAll('paper-card').length, 10, 'list has 10 entries');
           });
       });
     </script>
