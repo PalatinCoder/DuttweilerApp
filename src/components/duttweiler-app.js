@@ -1,5 +1,8 @@
 /**
 @license
+Copyright (c) 2918 Jan Syring-Lingenfelder. All right reserved.
+
+This code is based on the pwa-starter-kit
 Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -29,7 +32,8 @@ import { store } from '../store.js';
 import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
-  _render({appTitle, _page, _drawerOpened, _drawerPersistent, _snackbarOpened, _offline}) {
+  render() {
+    const {appTitle, _page, _drawerOpened, _drawerPersistent, _snackbarOpened, _offline} = this;
     // Anything that's related to rendering should be done in here.
     return html`
     <style>
@@ -169,7 +173,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
-        <button class="menu-btn" title="Menu" on-click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
+        <button class="menu-btn" title="Menu" @click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
         <div main-title>${appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
@@ -177,36 +181,36 @@ class DuttweilerApp extends connect(store)(LitElement) {
 
     <!-- Drawer content -->
     <app-drawer swipe-open 
-        opened="${_drawerPersistent ? true : _drawerOpened /* persistent drawer is always open */}"
-        on-opened-changed="${e => store.dispatch(updateDrawerState({opened: e.target.opened}))}"
-        persistent="${_drawerPersistent}">
+        .opened="${_drawerPersistent ? true : _drawerOpened /* persistent drawer is always open */}"
+        @opened-changed="${e => store.dispatch(updateDrawerState({opened: e.target.opened}))}"
+        .persistent="${_drawerPersistent}">
       <nav class="drawer-list">
-        <a selected?="${_page === 'news'}" href="/news">Nachrichten</a>
-        <a selected?="${_page === 'events'}" href="/events">Veranstaltungen</a>
-        <a selected?="${_page === 'about'}" href="/about">Über</a>
+        <a ?selected="${_page === 'news'}" href="/news">Nachrichten</a>
+        <a ?selected="${_page === 'events'}" href="/events">Veranstaltungen</a>
+        <a ?selected="${_page === 'about'}" href="/about">Über</a>
       </nav>
     </app-drawer>
 
     <!-- Main content -->
     <main class="main-content">
-      <about-view class="page" active?="${_page === 'about'}"></about-view>
-      <news-view class="page" active?="${_page === 'news'}"></news-view>
-      <my-view404 class="page" active?="${_page === 'view404'}"></my-view404>
+      <news-view class="page" ?active="${_page === 'news'}"></news-view>
+      <about-view class="page" ?active="${_page === 'about'}"></about-view>
+      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
     </main>
 
-    <snack-bar active?="${_snackbarOpened}">
+    <snack-bar ?active="${_snackbarOpened}">
         You are now ${_offline ? 'offline' : 'online'}.</snack-bar>
     `;
   }
 
   static get properties() {
     return {
-      appTitle: String,
-      _page: String,
-      _drawerOpened: Boolean,
-      _drawerPersistent: Boolean,
-      _snackbarOpened: Boolean,
-      _offline: Boolean
+      appTitle: { type: String },
+      _page: { type: String },
+      _drawerOpened: { type: Boolean },
+      _drawerPersistent: { type: Boolean },
+      _snackbarOpened: { type: Boolean },
+      _offline: { type: Boolean },
     }
   }
 
@@ -217,7 +221,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     setPassiveTouchGestures(true);
   }
 
-  _firstRendered() {
+  firstUpdated() {
     installRouter((location) => store.dispatch(navigate(window.decodeURIComponent(location.pathname))));
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
     installMediaQueryWatcher(`(min-width: 1440px)`,
@@ -225,13 +229,13 @@ class DuttweilerApp extends connect(store)(LitElement) {
         (matches) => store.dispatch(updateDrawerState({persistent: matches})));
   }
 
-  _didRender(properties, changeList) {
-    if ('_page' in changeList) {
-      const pageTitle = properties.appTitle + ' - ' + changeList._page;
+  updated(changedProps) {
+    if (changedProps.has('_page')) {
+      const pageTitle = this.appTitle + ' - ' + this._page;
       updateMetadata({
-          title: pageTitle,
-          description: pageTitle
-          // This object also takes an image property, that points to an img src.
+        title: pageTitle,
+        description: pageTitle
+        // This object also takes an image property, that points to an img src.
       });
     }
   }
