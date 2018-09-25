@@ -154,12 +154,8 @@ class DuttweilerApp extends connect(store)(LitElement) {
         min-height: 100vh;
       }
 
-      .page {
+      .page:not([active]) {
         display: none;
-      }
-
-      .page[active] {
-        display: block;
       }
 
       footer {
@@ -169,6 +165,13 @@ class DuttweilerApp extends connect(store)(LitElement) {
         text-align: center;
       }
     </style>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <news-view class="page" ?active="${_page === 'news'}"></news-view>
+      <about-view class="page" ?active="${_page === 'about'}"></about-view>
+      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
+    </main>
 
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
@@ -190,12 +193,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
         <a ?selected="${_page === 'about'}" href="/about">Über</a>
       </nav>
     </app-drawer>
-
-    <!-- Main content -->
-    <main class="main-content">
-      <about-view class="page" ?active="${_page === 'about'}"></about-view>
-      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
-    </main>
 
     <snack-bar ?active="${_snackbarOpened}">
         You are now ${_offline ? 'offline' : 'online'}.</snack-bar>

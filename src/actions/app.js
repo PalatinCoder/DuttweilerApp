@@ -34,6 +34,9 @@ const loadPage = (page) => (dispatch) => {
         // navigating to view1 after my-view1.js is loaded.
       });
       break;
+    case 'news':
+      import('../components/news-view.js');
+      break;
     default:
       page = 'view404';
       import('../components/my-view404.js');

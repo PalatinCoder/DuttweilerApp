@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>news</title>
+
+    <script>
+      // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+      // https://github.com/reactjs/redux/issues/2907
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
+
+    <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
+  </head>
+  <body>
+    <test-fixture id="news">
+      <template>
+        <news-view active></news-view>
+      </template>
+    </test-fixture>
+
+    <script type="module">
+      import 'axe-core/axe.min.js';
+      import {axeReport} from 'pwa-helpers/axe-report.js';
+
+      import '../../src/components/news-view.js';
+      import { news_items } from '../../mock-api/data/news.js';
+
+      import { store } from '../../src/store.js';
+      import { REQUEST_DATA, RECEIVE_DATA, INVALIDATE_DATA } from '../../src/actions/api-data.js';
+
+      suite('news view', function() {
+          test('news list', function() {
+              store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: news_items, receivedAt: Date.now()});
+              const view = fixture('news');
+              assert.equal(view.shadowRoot.querySelectorAll('paper-card').length, 10, 'list has 10 entries');
+          });
+      });
+    </script>
+  </body>
+</html>

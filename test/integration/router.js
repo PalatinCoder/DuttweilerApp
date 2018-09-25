@@ -67,7 +67,7 @@ describe('routing tests', function() {
   });
 
   it('switching the page shows the right views', async function() {
-    await testViewRouting(page, 'news', 'my-view404');
+    await testViewRouting(page, 'news', 'news-view');
     await testViewRouting(page, 'events', 'my-view404');
     await testViewRouting(page, 'about', 'about-view');
     await testViewRouting(page, 'lizard', 'my-view404');
