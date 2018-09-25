@@ -154,12 +154,8 @@ class DuttweilerApp extends connect(store)(LitElement) {
         min-height: 100vh;
       }
 
-      .page {
+      .page:not([active]) {
         display: none;
-      }
-
-      .page[active] {
-        display: block;
       }
 
       footer {

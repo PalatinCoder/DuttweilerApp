@@ -16,7 +16,7 @@ class NewsView extends connect(store)(PageViewElement) {
     return html`
       <style>
         :host {
-          display: flex !important;
+          display: flex;
           flex-wrap: wrap;
           justify-content: center;
         }
