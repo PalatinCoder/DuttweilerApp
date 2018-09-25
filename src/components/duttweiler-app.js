@@ -166,6 +166,13 @@ class DuttweilerApp extends connect(store)(LitElement) {
       }
     </style>
 
+    <!-- Main content -->
+    <main class="main-content">
+      <news-view class="page" ?active="${_page === 'news'}"></news-view>
+      <about-view class="page" ?active="${_page === 'about'}"></about-view>
+      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
+    </main>
+
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
@@ -186,13 +193,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
         <a ?selected="${_page === 'about'}" href="/about">Über</a>
       </nav>
     </app-drawer>
-
-    <!-- Main content -->
-    <main class="main-content">
-      <news-view class="page" ?active="${_page === 'news'}"></news-view>
-      <about-view class="page" ?active="${_page === 'about'}"></about-view>
-      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
-    </main>
 
     <snack-bar ?active="${_snackbarOpened}">
         You are now ${_offline ? 'offline' : 'online'}.</snack-bar>
