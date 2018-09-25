@@ -6,7 +6,8 @@ import { SharedStyles } from './shared-styles.js';
 import { store } from '../store';
 import { fetchDataIfNeeded, invalidateData } from '../actions/api-data.js';
 import { Fab } from '@material/mwc-fab';
-import { NewsCard } from './news-card';
+import { Button } from "@material/mwc-button";
+import '@polymer/paper-card/paper-card.js';
 
 class NewsView extends connect(store)(PageViewElement) {
   render() {
@@ -19,8 +20,13 @@ class NewsView extends connect(store)(PageViewElement) {
           flex-wrap: wrap;
           justify-content: center;
         }
-        news-card {
+        paper-card {
           margin: 1em;
+          width: calc(100% - 2em); /* - 2x margin */
+          max-width: 450px;
+        }
+        paper-card span {
+          color: gray;
         }
         mwc-fab {
           position: fixed;
@@ -29,7 +35,17 @@ class NewsView extends connect(store)(PageViewElement) {
         }
       </style>
       ${repeat(_items, (item) => html`
-        <news-card item="${item}"></news-card>
+        <paper-card heading="${item.headline}" image="${item.imageUrl || ''}" alt="${item.imageAlternativeText}">
+          <div class="card-content">
+            <span>${item.date}</span>
+            <h3>${item.subheadline}</h3>
+            <p>${item.text}</p>
+          </div>
+          <div class="card-actions">
+            <mwc-button dense class="mdc-card__action--button" icon="share">Teilen</mwc-button>
+            <mwc-button raised dense class="mdc-card__action--button" icon="chevron_right" @click="${() => window.open("https://www.duttweiler.de"+item.url)}">Lesen</mwc-button>
+          </div>
+        </paper-card>
       `)}
       <mwc-fab icon="refresh" label="Aktualisieren" @click="${(e) => this._clickHandler(e)}" .exited="${_isFetching}"></mwc-fab>
     `
