@@ -1,6 +1,6 @@
 import { html } from '@polymer/lit-element';
 import { connect } from 'pwa-helpers';
-import { repeat } from 'lit-html/lib/repeat.js';
+import { repeat } from 'lit-html/directives/repeat.js';
 import { PageViewElement } from './page-view-element.js';
 import { SharedStyles } from './shared-styles.js';
 import { store } from '../store';
@@ -9,7 +9,9 @@ import { Fab } from '@material/mwc-fab';
 import { NewsCard } from './news-card';
 
 class NewsView extends connect(store)(PageViewElement) {
-  _render({_items = [], _isFetching}) {
+  render() {
+    const { _isFetching } = this;
+    const _items = this._items || [];
     return html`
       <style>
         :host {
@@ -29,7 +31,7 @@ class NewsView extends connect(store)(PageViewElement) {
       ${repeat(_items, (item) => html`
         <news-card item="${item}"></news-card>
       `)}
-      <mwc-fab icon="refresh" label="Aktualisieren" on-click="${(e) => this._clickHandler(e)}" exited="${_isFetching}"></mwc-fab>
+      <mwc-fab icon="refresh" label="Aktualisieren" @click="${(e) => this._clickHandler(e)}" .exited="${_isFetching}"></mwc-fab>
     `
   }
 
@@ -40,13 +42,13 @@ class NewsView extends connect(store)(PageViewElement) {
 
   static get properties() {
     return {
-      _data: Object,
-      _items: Array,
-      _isFetching: Boolean
+      _data: { type: Object },
+      _items: { type: Array },
+      _isFetching: { type: Boolean }
     }
   }
 
-  _firstRendered() {
+  firstUpdated() {
     store.dispatch(fetchDataIfNeeded('news'))
   }
 
