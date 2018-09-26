@@ -26,9 +26,9 @@ jobs:
       script: npm run test:unit
 
     - stage: deploy
-      name: "Firebase (es6-bundled)"
+      name: "Firebase (es6-unbundled)"
       if: tag IS present
-      script: npm run build:static
+      script: polymer build --preset es6-unbundled
       deploy: &firebase
         on:
           tags: true
