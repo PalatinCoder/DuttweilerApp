@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "axe-core": "^3.1.2",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "pixelmatch": "^4.0.2",
     "polymer-cli": "^1.8.0",
