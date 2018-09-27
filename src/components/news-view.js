@@ -26,7 +26,7 @@ class NewsView extends connect(store)(PageViewElement) {
           max-width: 450px;
         }
         paper-card span {
-          color: gray;
+          color: var(--secondary-text-color);
         }
         mwc-fab {
           position: fixed;
