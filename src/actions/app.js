@@ -37,6 +37,9 @@ const loadPage = (page) => (dispatch) => {
     case 'news':
       import('../components/news-view.js');
       break;
+    case 'events':
+      import('../components/events-view.js');
+      break;
     default:
       page = 'view404';
       import('../components/my-view404.js');

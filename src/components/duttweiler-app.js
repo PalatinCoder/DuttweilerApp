@@ -169,6 +169,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     <!-- Main content -->
     <main class="main-content">
       <news-view class="page" ?active="${_page === 'news'}"></news-view>
+      <events-view class="page" ?active="${_page === 'events'}"></events-view>
       <about-view class="page" ?active="${_page === 'about'}"></about-view>
       <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
     </main>
