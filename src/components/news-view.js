@@ -28,6 +28,12 @@ class NewsView extends connect(store)(PageViewElement) {
         paper-card span {
           color: var(--secondary-text-color);
         }
+        .card-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: var(--secondary-text-color);
+        }
         mwc-fab {
           position: fixed;
           bottom: 24px;
@@ -42,8 +48,8 @@ class NewsView extends connect(store)(PageViewElement) {
             <p>${item.text}</p>
           </div>
           <div class="card-actions">
-            <mwc-button dense class="mdc-card__action--button" icon="share" @click="${() => alert("Sharing not yet implemented")}">Teilen</mwc-button>
-            <mwc-button raised dense class="mdc-card__action--button" icon="chevron_right" @click="${() => window.location = "https://www.duttweiler.de"+item.url}">Lesen</mwc-button>
+            <mwc-button raised icon="chevron_right" @click="${() => window.location = "https://www.duttweiler.de"+item.url}">Lesen</mwc-button>
+            <mwc-icon @click="${() => alert("Sharing not yet implemented")}">share</mwc-icon>
           </div>
         </paper-card>
       `)}
