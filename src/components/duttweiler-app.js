@@ -1,6 +1,6 @@
 /**
 @license
-Copyright (c) 2918 Jan Syring-Lingenfelder. All right reserved.
+Copyright (c) 2018 Jan Syring-Lingenfelder. All right reserved.
 
 This code is based on the pwa-starter-kit
 Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
