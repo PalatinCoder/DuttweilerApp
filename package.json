@@ -22,7 +22,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@material/mwc-button": "^0.2.1",
+    "@material/mwc-button": "^0.3.0",
     "@material/mwc-fab": "^0.2.1",
     "@material/mwc-icon": "^0.2.1",
     "@polymer/app-layout": "^3.0.0",
