@@ -36,6 +36,21 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Integration tests :: Regenerate Visual",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-u",
+                "tdd",
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/test/integration/screenshots-baseline/regenerate.js"
+            ],
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Integration tests :: Routing",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [

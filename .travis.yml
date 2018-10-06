@@ -25,6 +25,9 @@ jobs:
         - sh -e /etc/init.d/xvfb start
       script: npm run test:unit
 
+    - name: "Screenshot Tests"
+      script: npm run test:screenshots
+
     - stage: deploy
       name: "Firebase (es6-unbundled)"
       if: tag IS present

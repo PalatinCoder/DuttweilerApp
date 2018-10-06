@@ -30,6 +30,9 @@ describe('👀 page screenshots are correct', function() {
       fs.mkdirSync(currentDir);
     }
     // And it's subdirectories.
+    if (!fs.existsSync(`${currentDir}/desktop`)){
+      fs.mkdirSync(`${currentDir}/desktop`);
+    }
     if (!fs.existsSync(`${currentDir}/wide`)){
       fs.mkdirSync(`${currentDir}/wide`);
     }
@@ -41,18 +44,40 @@ describe('👀 page screenshots are correct', function() {
   after((done) => polyserve.close(done));
 
   beforeEach(async function() {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({args: ['--no-sandbox']});
     page = await browser.newPage();
   });
 
   afterEach(() => browser.close());
+
+  describe('desktop', function() {
+    beforeEach(async function() {
+      return page.setViewport({width: 1920, height: 1080});
+    });
+
+    it('home', async function() {
+      return takeAndCompareScreenshot(page, '', 'desktop');
+    });
+    it('/news', async function() {
+      return takeAndCompareScreenshot(page, 'news', 'desktop');
+    });
+    it('/events', async function() {
+      return takeAndCompareScreenshot(page, 'events', 'desktop');
+    });
+    it('/about', async function() {
+      return takeAndCompareScreenshot(page, 'about', 'desktop');
+    });
+    it('invalid route', async function() {
+      return takeAndCompareScreenshot(page, 'batmanNotAView', 'desktop');
+    });
+  });
 
   describe('wide screen', function() {
     beforeEach(async function() {
       return page.setViewport({width: 800, height: 600});
     });
 
-    it('/index.html', async function() {
+    it('home', async function() {
       return takeAndCompareScreenshot(page, '', 'wide');
     });
     it('/news', async function() {
@@ -64,7 +89,7 @@ describe('👀 page screenshots are correct', function() {
     it('/about', async function() {
       return takeAndCompareScreenshot(page, 'about', 'wide');
     });
-    it('/404', async function() {
+    it('invalid route', async function() {
       return takeAndCompareScreenshot(page, 'batmanNotAView', 'wide');
     });
   });
@@ -74,7 +99,7 @@ describe('👀 page screenshots are correct', function() {
       return page.setViewport({width: 375, height: 667});
     });
 
-    it('/index.html', async function() {
+    it('home', async function() {
       return takeAndCompareScreenshot(page, '', 'narrow');
     });
     it('/news', async function() {
@@ -86,7 +111,7 @@ describe('👀 page screenshots are correct', function() {
     it('/about', async function() {
       return takeAndCompareScreenshot(page, 'about', 'narrow');
     });
-    it('/404', async function() {
+    it('invalid route', async function() {
       return takeAndCompareScreenshot(page, 'batmanNotAView', 'narrow');
     });
   });
@@ -96,8 +121,8 @@ async function takeAndCompareScreenshot(page, route, filePrefix) {
   // If you didn't specify a file, use the name of the route.
   let fileName = filePrefix + '/' + (route ? route : 'index');
 
-  await page.goto(`http://127.0.0.1:4444/${route}`);
-  await page.screenshot({path: `${currentDir}/${fileName}.png`});
+  await page.goto(`http://localhost:4444/${route}`, {waitUntil: ['load', 'networkidle0']});
+  await page.screenshot({fullPage: true, path: `${currentDir}/${fileName}.png`});
   return compareScreenshots(fileName);
 }
 

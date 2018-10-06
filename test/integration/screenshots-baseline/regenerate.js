@@ -25,6 +25,9 @@ describe('🎁 regenerate screenshots', function() {
       fs.mkdirSync(baselineDir);
     }
     // And it's subdirectories.
+    if (!fs.existsSync(`${baselineDir}/desktop`)){
+      fs.mkdirSync(`${baselineDir}/desktop`);
+    }
     if (!fs.existsSync(`${baselineDir}/wide`)){
       fs.mkdirSync(`${baselineDir}/wide`);
     }
@@ -36,7 +39,7 @@ describe('🎁 regenerate screenshots', function() {
   after((done) => polyserve.close(done));
 
   beforeEach(async function() {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({slowMo: true, args: ['--no-sandbox']});
     page = await browser.newPage();
   });
 
@@ -49,28 +52,29 @@ describe('🎁 regenerate screenshots', function() {
 
 async function generateBaselineScreenshots(page) {
   const breakpoints = [
+      {width: 1920, height: 1080},
       {width: 800, height: 600},
       {width: 375, height: 667}];
-  const prefixes = ['wide', 'narrow'];
+  const prefixes = ['desktop', 'wide', 'narrow'];
 
   for (let i = 0; i < prefixes.length; i++) {
     const prefix = prefixes[i];
     console.log(prefix + '...');
     page.setViewport(breakpoints[i]);
     // Index.
-    await page.goto('http://127.0.0.1:4444/');
-    await page.screenshot({path: `${baselineDir}/${prefix}/index.png`});
+    await page.goto('http://localhost:4444/', {waitUntil: ['load', 'networkidle0']});
+    await page.screenshot({fullPage: true, path: `${baselineDir}/${prefix}/index.png`});
     // Views.
-    await page.goto(`http://127.0.0.1:4444/news`);
-    await page.screenshot({path: `${baselineDir}/${prefix}/news.png`});
+    await page.goto(`http://localhost:4444/news`, {waitUntil: ['load', 'networkidle0']});
+    await page.screenshot({fullPage: true, path: `${baselineDir}/${prefix}/news.png`});
     
-    await page.goto(`http://127.0.0.1:4444/events`);
-    await page.screenshot({path: `${baselineDir}/${prefix}/events.png`});
+    await page.goto(`http://localhost:4444/events`, {waitUntil: ['load', 'networkidle0']});
+    await page.screenshot({fullPage: true, path: `${baselineDir}/${prefix}/events.png`});
     
-    await page.goto(`http://127.0.0.1:4444/about`);
-    await page.screenshot({path: `${baselineDir}/${prefix}/about.png`});
+    await page.goto(`http://localhost:4444/about`, {waitUntil: ['load', 'networkidle0']});
+    await page.screenshot({fullPage: true, path: `${baselineDir}/${prefix}/about.png`});
     // 404.
-    await page.goto('http://127.0.0.1:4444/batmanNotAView');
-    await page.screenshot({path: `${baselineDir}/${prefix}/batmanNotAView.png`});
+    await page.goto('http://localhost:4444/batmanNotAView', {waitUntil: ['load', 'networkidle0']});
+    await page.screenshot({fullPage: true, path: `${baselineDir}/${prefix}/batmanNotAView.png`});
   }
 }
