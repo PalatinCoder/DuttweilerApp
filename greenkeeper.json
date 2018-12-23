@@ -7,7 +7,7 @@
     },
     "prpl-server": {
       "packages": [
-        "server/package.json"
+        "functions/package.json"
       ]
     }
   }
