@@ -13,7 +13,9 @@
     </script>
 
     <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script src="../../node_modules/wct-browser-legacy/browser.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/wct-mocha/wct-mocha.js"></script>
   </head>
   <body>
     <test-fixture id="news">
@@ -23,6 +25,7 @@
     </test-fixture>
 
     <script type="module">
+      import '@polymer/test-fixture';
       import 'axe-core/axe.min.js';
       import {axeReport} from 'pwa-helpers/axe-report.js';
 
