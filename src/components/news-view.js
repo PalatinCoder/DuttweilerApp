@@ -67,7 +67,6 @@ class NewsView extends connect(store)(PageViewElement) {
 
   static get properties() {
     return {
-      _data: { type: Object },
       _items: { type: Array },
       _isFetching: { type: Boolean }
     }
@@ -80,10 +79,7 @@ class NewsView extends connect(store)(PageViewElement) {
   stateChanged(state) {
     const news = state.dataByEndpoint['news'];
     if (news) {
-      const items = news.items;
-      if (items) {
-        this._items = items;
-      }
+      this._items = news.items;
       this._isFetching = state.dataByEndpoint['news'].isFetching;
     }
   }

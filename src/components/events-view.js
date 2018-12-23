@@ -76,7 +76,6 @@ class EventsView extends connect(store)(PageViewElement) {
 
   static get properties() {
     return {
-      _data: { type: Object },
       _items: { type: Array },
       _isFetching: { type: Boolean }
     }
@@ -89,11 +88,7 @@ class EventsView extends connect(store)(PageViewElement) {
   stateChanged(state) {
     const events = state.dataByEndpoint['events'];
     if (events) {
-      this._data = state.dataByEndpoint['events'];
-      const items = events.items;
-      if (items) {
-        this._items = items;
-      }
+      this._items = events.items;
       this._isFetching = state.dataByEndpoint['events'].isFetching;
     }
   }
