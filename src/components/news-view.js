@@ -74,7 +74,7 @@ class NewsView extends connect(store)(PageViewElement) {
     store.dispatch(fetchDataIfNeeded('news'))
   }
 
-  _stateChanged(state) {
+  stateChanged(state) {
     const news = state.dataByEndpoint['news'];
     if (news) {
       this._data = state.dataByEndpoint['news'];

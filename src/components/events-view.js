@@ -83,7 +83,7 @@ class EventsView extends connect(store)(PageViewElement) {
     store.dispatch(fetchDataIfNeeded('events'))
   }
 
-  _stateChanged(state) {
+  stateChanged(state) {
     const events = state.dataByEndpoint['events'];
     if (events) {
       this._data = state.dataByEndpoint['events'];
