@@ -44,7 +44,7 @@
     "polyserve": "^0.27.12",
     "prpl-server": "^1.2.0",
     "puppeteer": "^1.8.0",
-    "release-it": "^8.0.1",
+    "release-it": "^9.3.0",
     "renamer": "^1.0.0",
     "replace": "^1.0.0",
     "wct-browser-legacy": "^1.0.1"
