@@ -11,7 +11,6 @@ import '@polymer/paper-card/paper-card.js';
 
 class EventsView extends connect(store)(PageViewElement) {
   render() {
-    const _items = this._items || [];
     return html`
       <style>
         :host {
@@ -47,7 +46,7 @@ class EventsView extends connect(store)(PageViewElement) {
           right: 24px;
         }
       </style>
-      ${repeat(_items, (item) => html`
+      ${repeat(this._items, (item) => html`
         <paper-card heading="${item.title}">
           <div class="card-content">
             ${item.startDate ? html`<div><mwc-icon>schedule</mwc-icon> ${item.startDate}</div>` : ''}
@@ -68,6 +67,11 @@ class EventsView extends connect(store)(PageViewElement) {
   _refresh() {
     store.dispatch(invalidateData('events'));
     store.dispatch(fetchDataIfNeeded('events'));
+  }
+
+  constructor() {
+    super();
+    this._items = [];
   }
 
   static get properties() {

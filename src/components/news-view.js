@@ -11,7 +11,6 @@ import '@polymer/paper-card/paper-card.js';
 
 class NewsView extends connect(store)(PageViewElement) {
   render() {
-    const _items = this._items || [];
     return html`
       <style>
         :host {
@@ -39,7 +38,7 @@ class NewsView extends connect(store)(PageViewElement) {
           right: 24px;
         }
       </style>
-      ${repeat(_items, (item) => html`
+      ${repeat(this._items, (item) => html`
         <paper-card heading="${item.headline}" image="${item.imageUrl || ''}" alt="${item.imageAlternativeText}">
           <div class="card-content">
             <span>${item.date}</span>
@@ -61,6 +60,11 @@ class NewsView extends connect(store)(PageViewElement) {
     store.dispatch(fetchDataIfNeeded('news'));
   }
 
+  constructor() {
+    super();
+    this._items = [];
+  }
+
   static get properties() {
     return {
       _data: { type: Object },
@@ -76,7 +80,6 @@ class NewsView extends connect(store)(PageViewElement) {
   stateChanged(state) {
     const news = state.dataByEndpoint['news'];
     if (news) {
-      this._data = state.dataByEndpoint['news'];
       const items = news.items;
       if (items) {
         this._items = items;
