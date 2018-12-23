@@ -4,3 +4,4 @@ test/integration/screenshots-current
 yarn.lock
 .DS_Store
 .firebaserc
+.firebase/

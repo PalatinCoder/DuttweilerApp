@@ -26,9 +26,9 @@ jobs:
       script: npm run test:unit
 
     - stage: deploy
-      name: "Firebase (es6-unbundled)"
+      name: "Firebase PRPL-Server"
       if: tag IS present
-      script: polymer build --preset es6-unbundled
+      script: npm run build:firebase
       deploy: &firebase
         on:
           tags: true
