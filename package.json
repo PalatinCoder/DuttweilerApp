@@ -22,16 +22,16 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@material/mwc-fab": "^0.3.0",
-    "@material/mwc-button": "^0.3.0",
-    "@material/mwc-icon": "^0.3.0",
-    "@polymer/app-layout": "^3.0.0",
-    "@polymer/lit-element": "^0.6.1",
+    "@material/mwc-button": "^0.3.4",
+    "@material/mwc-fab": "^0.3.4",
+    "@material/mwc-icon": "^0.3.4",
+    "@polymer/app-layout": "^3.0.2",
+    "@polymer/lit-element": "^0.6.5",
     "@polymer/paper-card": "^3.0.1",
-    "@polymer/polymer": "^3.0.5",
-    "@webcomponents/webcomponentsjs": "^2.1.3",
+    "@polymer/polymer": "^3.1.0",
+    "@webcomponents/webcomponentsjs": "^2.2.1",
     "pwa-helpers": "^0.9.0",
-    "redux": "^4.0.0",
+    "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
   },
@@ -40,13 +40,13 @@
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "pixelmatch": "^4.0.2",
-    "polymer-cli": "^1.8.0",
-    "polyserve": "^0.27.12",
-    "prpl-server": "^1.2.0",
-    "puppeteer": "^1.8.0",
+    "polymer-cli": "^1.9.3",
+    "polyserve": "^0.27.14",
+    "prpl-server": "^1.3.0",
+    "puppeteer": "^1.11.0",
     "release-it": "^9.3.0",
-    "renamer": "^1.0.0",
-    "replace": "^1.0.0",
-    "wct-browser-legacy": "^1.0.1"
+    "renamer": "^1.1.1",
+    "replace": "^1.0.1",
+    "wct-browser-legacy": "^1.0.2"
   }
 }
