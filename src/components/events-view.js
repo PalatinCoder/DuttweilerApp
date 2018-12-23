@@ -21,9 +21,11 @@ class EventsView extends connect(store)(PageViewElement) {
           margin: 1em;
           width: calc(100% - 2em); /* - 2x margin */
           max-width: 450px;
+          font-family: var(--app-font-family-secondary);
         }
         .card-content, .card-actions {
           color: var(--secondary-text-color);
+          font-family: var(--app-font-family-primary);
         }
         .card-content mwc-icon {
           margin-right: 0.5em;

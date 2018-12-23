@@ -54,6 +54,8 @@ class DuttweilerApp extends connect(store)(LitElement) {
         --app-drawer-background-color: var(--app-secondary-color);
         --app-drawer-text-color: var(--app-light-text-color);
         --app-drawer-selected-color: #78909C;
+        --app-font-family-primary: 'Open Sans',sans-serif;
+        --app-font-family-secondary: 'Montserrat',sans-serif;
       }
       @media (min-width: 768px) {
         :host {
@@ -130,6 +132,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
         padding: 24px;
         background: var(--app-drawer-background-color);
         position: relative;
+        font-family: var(--app-font-family-secondary);
       }
 
       .drawer-list > a {

@@ -10,7 +10,7 @@ class AboutView extends PageViewElement {
           margin: 0 auto;
         }
         section p { text-align: justify }
-        h2 { color: var(--app-dark-text-color); text-align: center; }
+        h2 { color: var(--app-dark-text-color); text-align: center; font-family: var(--app-font-family-secondary); }
       </style>
       <section>
         <h2>Über die DuttweilerApp</h2>

@@ -21,10 +21,12 @@ class NewsView extends connect(store)(PageViewElement) {
           margin: 1em;
           width: calc(100% - 2em); /* - 2x margin */
           max-width: 450px;
+          font-family: var(--app-font-family-secondary);
         }
         paper-card span {
           color: var(--secondary-text-color);
         }
+        .card-content p, .card-content span { font-family: var(--app-font-family-primary); }
         .card-actions {
           display: flex;
           justify-content: space-between;
