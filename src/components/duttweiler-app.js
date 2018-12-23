@@ -88,23 +88,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
         font-size: 30px;
       }
 
-      .toolbar-list {
-        display: none;
-      }
-
-      .toolbar-list > a {
-        display: inline-block;
-        color: var(--app-header-text-color);
-        text-decoration: none;
-        line-height: 30px;
-        padding: 4px 24px;
-      }
-
-      .toolbar-list > a[selected] {
-        color: var(--app-header-selected-color);
-        border-bottom: 4px solid var(--app-header-selected-color);
-      }
-
       .menu-btn {
         background: none;
         border: none;
@@ -159,13 +142,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
 
       .page:not([active]) {
         display: none;
-      }
-
-      footer {
-        padding: 24px;
-        background: var(--app-drawer-background-color);
-        color: var(--app-drawer-text-color);
-        text-align: center;
       }
     </style>
 
