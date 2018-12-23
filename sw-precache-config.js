@@ -24,6 +24,14 @@ module.exports = {
     {
       urlPattern: /^https:\/\/fonts.gstatic.com\//,
       handler: 'fastest'
+    },
+    {
+      urlPattern: /^https:\/\/www.duttweiler.de\/api\//,
+      handler: 'networkFirst'
+    },
+    {
+      urlPattern: /^https:\/\/img.shields.io\/.*\.svg/,
+      handler: 'cacheFirst'
     }
   ]
 };
