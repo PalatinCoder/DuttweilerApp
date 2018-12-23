@@ -1,7 +1,7 @@
 {
     "pkgFiles": ["package.json", "package-lock.json"],
     "increment": "conventional:angular",
-    "src": {
+    "git": {
         "commitMessage": "chore(release): v%s",
         "tagName": "v%s",
         "tagAnnotation": "Release v%s"
