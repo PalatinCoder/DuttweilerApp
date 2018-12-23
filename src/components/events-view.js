@@ -2,7 +2,6 @@ import { html } from '@polymer/lit-element';
 import { connect } from 'pwa-helpers';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { PageViewElement } from './page-view-element.js';
-import { SharedStyles } from './shared-styles.js';
 import { store } from '../store.js';
 import { fetchDataIfNeeded, invalidateData } from '../actions/api-data.js';
 import { Fab } from '@material/mwc-fab';

@@ -1,13 +1,16 @@
 import { html } from '@polymer/lit-element';
-import { SharedStyles } from './shared-styles.js';
 import { PageViewElement } from './page-view-element.js';
 
 class AboutView extends PageViewElement {
   render() {
     return html`
-      ${SharedStyles}
       <style>
+        section {
+          max-width: 600px;
+          margin: 0 auto;
+        }
         section p { text-align: justify }
+        h2 { color: var(--app-dark-text-color); text-align: center; }
       </style>
       <section>
         <h2>Über die DuttweilerApp</h2>
