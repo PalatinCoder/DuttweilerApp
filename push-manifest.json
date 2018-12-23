@@ -26,5 +26,33 @@
       "type": "script",
       "weight": 1
     }
+  },
+  "/news": {
+    "src/components/duttweiler-app.js": {
+      "type": "script",
+      "weight": 1
+    },
+    "src/components/news-view.js": {
+      "type": "script",
+      "weight": 1
+    },
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js": {
+      "type": "script",
+      "weight": 1
+    }
+  },
+  "/events": {
+    "src/components/duttweiler-app.js": {
+      "type": "script",
+      "weight": 1
+    },
+    "src/components/events-view.js": {
+      "type": "script",
+      "weight": 1
+    },
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js": {
+      "type": "script",
+      "weight": 1
+    }
   }
 }
