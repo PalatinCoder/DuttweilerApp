@@ -33,7 +33,6 @@ import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
   render() {
-    const {appTitle, _page, _drawerOpened, _drawerPersistent, _snackbarOpened, _offline} = this;
     // Anything that's related to rendering should be done in here.
     return html`
     <style>
@@ -168,35 +167,35 @@ class DuttweilerApp extends connect(store)(LitElement) {
 
     <!-- Main content -->
     <main class="main-content">
-      <news-view class="page" ?active="${_page === 'news'}"></news-view>
-      <events-view class="page" ?active="${_page === 'events'}"></events-view>
-      <about-view class="page" ?active="${_page === 'about'}"></about-view>
-      <my-view404 class="page" ?active="${_page === 'view404'}"></my-view404>
+      <news-view class="page" ?active="${this._page === 'news'}"></news-view>
+      <events-view class="page" ?active="${this._page === 'events'}"></events-view>
+      <about-view class="page" ?active="${this._page === 'about'}"></about-view>
+      <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
     </main>
 
     <!-- Header -->
     <app-header condenses reveals effects="waterfall">
       <app-toolbar class="toolbar-top">
         <button class="menu-btn" title="Menu" @click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
-        <div main-title>${appTitle}</div>
+        <div main-title>${this.appTitle}</div>
         <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
       </app-toolbar>
     </app-header>
 
     <!-- Drawer content -->
     <app-drawer swipe-open 
-        .opened="${_drawerPersistent ? true : _drawerOpened /* persistent drawer is always open */}"
+        .opened="${this._drawerPersistent ? true : this._drawerOpened /* persistent drawer is always open */}"
         @opened-changed="${e => store.dispatch(updateDrawerState({opened: e.target.opened}))}"
-        .persistent="${_drawerPersistent}">
+        .persistent="${this._drawerPersistent}">
       <nav class="drawer-list">
-        <a ?selected="${_page === 'news'}" href="/news">Nachrichten</a>
-        <a ?selected="${_page === 'events'}" href="/events">Veranstaltungen</a>
-        <a ?selected="${_page === 'about'}" href="/about">Über</a>
+        <a ?selected="${this._page === 'news'}" href="/news">Nachrichten</a>
+        <a ?selected="${this._page === 'events'}" href="/events">Veranstaltungen</a>
+        <a ?selected="${this._page === 'about'}" href="/about">Über</a>
       </nav>
     </app-drawer>
 
-    <snack-bar ?active="${_snackbarOpened}">
-        You are now ${_offline ? 'offline' : 'online'}.</snack-bar>
+    <snack-bar ?active="${this._snackbarOpened}">
+        You are now ${this._offline ? 'offline' : 'online'}.</snack-bar>
     `;
   }
 

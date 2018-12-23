@@ -11,7 +11,6 @@ import '@polymer/paper-card/paper-card.js';
 
 class EventsView extends connect(store)(PageViewElement) {
   render() {
-    const { _isFetching } = this;
     const _items = this._items || [];
     return html`
       <style>
@@ -62,11 +61,11 @@ class EventsView extends connect(store)(PageViewElement) {
           </div>
         </paper-card>
       `)}
-      <mwc-fab icon="refresh" label="Aktualisieren" @click="${(e) => this._clickHandler(e)}" .exited="${_isFetching}"></mwc-fab>
+      <mwc-fab icon="refresh" label="Aktualisieren" @click="${this._refresh}" .exited="${this._isFetching}"></mwc-fab>
     `
   }
 
-  _clickHandler(e) {
+  _refresh() {
     store.dispatch(invalidateData('events'));
     store.dispatch(fetchDataIfNeeded('events'));
   }
