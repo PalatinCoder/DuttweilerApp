@@ -65,7 +65,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       @media (min-width: 1440px) {
         /* large screen -> drawer is persistent, so we need some margin on the left to keep the content centered */
         main { margin-left: var(--app-drawer-width); }
-        [main-title] { padding-left: calc(var(--app-drawer-width) - 60px); /* 60px = 16px margin from the app-toolbar and 44px from the menu button */}
+        [main-title] { padding-left: var(--app-drawer-width);}
       }
 
       app-header {
