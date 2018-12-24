@@ -33,6 +33,7 @@ class NewsView extends connect(store)(PageViewElement) {
           align-items: center;
           color: var(--secondary-text-color);
         }
+        .card-actions mwc-icon { cursor: pointer; }
         mwc-fab {
           position: fixed;
           bottom: 24px;
