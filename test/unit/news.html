@@ -35,12 +35,102 @@
       import { store } from '../../src/store.js';
       import { REQUEST_DATA, RECEIVE_DATA, INVALIDATE_DATA } from '../../src/actions/api-data.js';
 
-      suite('news view', function() {
-          test('news list', function() {
-              store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: news_items, receivedAt: Date.now()});
-              const view = fixture('news');
-              assert.equal(view.shadowRoot.querySelectorAll('paper-card').length, 10, 'list has 10 entries');
+      suite('news list', function() {
+        var view;
+
+        setup(() => {
+          view = fixture('news');
+          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: news_items, receivedAt: Date.now()});
+        });
+
+        test('list is complete', done => {
+          flush(() => {
+            let cards = view.shadowRoot.querySelectorAll('paper-card');
+            assert.lengthOf(cards, news_items.length, 'the number of cards does not equal the number of news items');
+            done();
           });
+        });
+      });
+
+      suite('empty news list', () => {
+        test('it show an error');
+      });
+
+      suite('news item', function() {
+        var view;
+        var data = news_items.slice(0,1);
+
+        setup(() => {
+          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: data, receivedAt: Date.now()});
+          view = fixture('news');
+        });
+
+        test('heading is correct', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            assert.equal(card.heading, data[0].headline);
+            done();
+          });
+        });
+        test('date is correct', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            let date = card.querySelector('.card-content span').innerText;
+            assert.equal(date,data[0].date);
+            done();
+          });
+        });
+        test('subheading is correct', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            let subheading = card.querySelector('.card-content h3').innerText;
+            assert.equal(subheading, data[0].subheadline);
+            done();
+          });
+        });
+        test('image is undefined', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            assert.isEmpty(card.image, 'image is not undefined');
+            // This produces some weird error
+            //assert.isUndefined(card.alt, 'alt text is not empty');
+            done();
+          });
+        });
+        test('text is correct', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            let text = card.querySelector('.card-content p').innerText;
+            assert.equal(text, data[0].text);
+            done();
+          });
+        });
+        test('read more button');
+      });
+
+      suite('news item with an image', () => {
+        var view;
+        var data = news_items.slice(5,6);
+
+        setup(() => {
+          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: data, receivedAt: Date.now()});
+          view = fixture('news');
+        });
+
+        test('image is correct', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            assert.equal(card.image, data[0].imageUrl);
+            done();
+          })
+        });
+        test('alt text is there', done => {
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            assert.exists(card.alt);
+            done();
+          });
+        });
       });
     </script>
   </body>
