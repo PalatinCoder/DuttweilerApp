@@ -7,6 +7,8 @@ install: npm install
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 
+before_deploy: ( cd functions && npm install )
+
 env:
   - GK_LOCK_COMMIT_AMEND=true
 
