@@ -34,6 +34,26 @@
             }
         },
         {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Unit Tests :: Firefox",
+            "url": "http://localhost:8081/components/duttweiler-app/test/unit/index.html",
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**"
+            ],
+            "reloadOnChange": {
+                "watch": [ "${workspaceFolder}/**/*.js", "${workspaceFolder}/test/unit/*.html" ],
+                "ignore": "**/node_modules/**"
+            },
+            "log": {
+                "consoleLevel": {
+                    "default": "Warn"
+                }
+            }
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Integration tests :: Routing",
