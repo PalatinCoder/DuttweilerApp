@@ -14,7 +14,7 @@ class AboutView extends PageViewElement {
       </style>
       <section>
         <h2>Über die DuttweilerApp</h2>
-        <p>Die DuttweilerApp bietet Nachrichten und den Veranstaltungskalender von duttweiler.de für das Smartphone optimiert. Zusätzlich erweitert die App das reine Anzeigen der Daten um nützliche Funktionen, wie z.B. Veranstaltugen zu teilen oder direkt in den eigenen Kalender zu übernehmen. Am nützlichsten ist wohl die Möglichkeit, sich via Push-Nachrichten über neue Nachrichten informieren zu lassen und so immer auf dem Laufenden zu bleiben.</p>
+        <p>Die DuttweilerApp bietet Nachrichten und den Veranstaltungskalender von duttweiler.de für das Smartphone optimiert. Zusätzlich erweitert die App das reine Anzeigen der Daten um nützliche Funktionen, wie z.B. Veranstaltungen zu teilen oder direkt in den eigenen Kalender zu übernehmen. Am nützlichsten ist wohl die Möglichkeit, sich via Push-Nachrichten über neue Nachrichten informieren zu lassen und so immer auf dem Laufenden zu bleiben.</p>
       </section>
       <section>
         <h2>Impressum</h2>
