@@ -47,8 +47,6 @@
     "prpl-server": "^1.3.0",
     "puppeteer": "^1.11.0",
     "release-it": "^9.3.0",
-    "renamer": "^1.1.1",
-    "replace": "^1.0.1",
     "wct-mocha": "^1.0.0"
   }
 }
