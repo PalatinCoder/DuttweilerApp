@@ -46,7 +46,15 @@ class EventsView extends connect(store)(PageViewElement) {
           bottom: 24px;
           right: 24px;
         }
+        .empty-list {
+          color: #757575;
+        }
       </style>
+
+      ${this._items.length == 0 ? html`
+        <p class="empty-list">Keine Daten vorhanden</p>
+      ` : ''}
+
       ${repeat(this._items, (item) => html`
         <paper-card heading="${item.title}">
           <div class="card-content">
