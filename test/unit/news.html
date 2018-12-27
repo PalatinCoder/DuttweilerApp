@@ -14,6 +14,8 @@
 
     <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script src="../../node_modules/sinon/pkg/sinon.js"></script>
     <script src="../../node_modules/mocha/mocha.js"></script>
     <script src="../../node_modules/wct-mocha/wct-mocha.js"></script>
   </head>
@@ -32,104 +34,74 @@
       import '../../src/components/news-view.js';
       import { news_items } from '../../mock-api/data/news.js';
 
-      import { store } from '../../src/store.js';
-      import { REQUEST_DATA, RECEIVE_DATA, INVALIDATE_DATA } from '../../src/actions/api-data.js';
-
       suite('news list', function() {
-        var view;
+        let view;
 
         setup(() => {
           view = fixture('news');
-          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: news_items, receivedAt: Date.now()});
+          // replace firstUpdated() to avoid dispatching the request to the api
+          sinon.replace(view, 'firstUpdated', () => { });
         });
 
         test('list is complete', done => {
+          view._items = news_items;
           flush(() => {
             let cards = view.shadowRoot.querySelectorAll('paper-card');
             assert.lengthOf(cards, news_items.length, 'the number of cards does not equal the number of news items');
             done();
           });
         });
-      });
 
-      suite('empty news list', () => {
-        test('it show an error');
+        test('empty list', done => {
+          view._items = [];
+          flush(() => {
+            let msg = view.shadowRoot.querySelector('p.empty-list');
+            expect(msg, 'no error message').to.exist;
+            done();
+          });
+        });
       });
 
       suite('news item', function() {
         var view;
-        var data = news_items.slice(0,1);
-
-        setup(() => {
-          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: data, receivedAt: Date.now()});
-          view = fixture('news');
-        });
-
-        test('heading is correct', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            assert.equal(card.heading, data[0].headline);
-            done();
-          });
-        });
-        test('date is correct', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            let date = card.querySelector('.card-content span').innerText;
-            assert.equal(date,data[0].date);
-            done();
-          });
-        });
-        test('subheading is correct', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            let subheading = card.querySelector('.card-content h3').innerText;
-            assert.equal(subheading, data[0].subheadline);
-            done();
-          });
-        });
-        test('image is undefined', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            assert.isEmpty(card.image, 'image is not undefined');
-            // This produces some weird error
-            //assert.isUndefined(card.alt, 'alt text is not empty');
-            done();
-          });
-        });
-        test('text is correct', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            let text = card.querySelector('.card-content p').innerText;
-            assert.equal(text, data[0].text);
-            done();
-          });
-        });
-        test('read more button');
-      });
-
-      suite('news item with an image', () => {
-        var view;
         var data = news_items.slice(5,6);
 
         setup(() => {
-          store.dispatch({type: RECEIVE_DATA, endpoint: 'news', data: data, receivedAt: Date.now()});
           view = fixture('news');
+          sinon.replace(view, 'firstUpdated', () => { });
+          view._items = data;
+          return view.updateComplete;
         });
 
-        test('image is correct', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            assert.equal(card.image, data[0].imageUrl);
-            done();
-          })
+        test('card content', () => {
+          let card = view.shadowRoot.querySelector('paper-card');
+          let cardContent = card.querySelector('.card-content').innerText;
+          expect(card.heading).to.equal(data[0].headline, 'card heading is not correct');
+          expect(cardContent).to.include(data[0].date, 'card does not show correct date');
+          expect(cardContent).to.include(data[0].subheadline, 'card does not show the subheadline');
+          expect(cardContent).to.include(data[0].text, 'card does not have the correct text');
+          expect(card.image).to.equal(data[0].imageUrl, 'image url is not correct');
+          expect(card.alt, 'image alt text').to.exist;
         });
-        test('alt text is there', done => {
-          flush(() => {
-            let card = view.shadowRoot.querySelector('paper-card');
-            assert.exists(card.alt);
-            done();
-          });
+
+        test('card actions', () => {
+          let card = view.shadowRoot.querySelector('paper-card');
+          let readMoreButton = card.querySelector('.card-actions mwc-button');
+          let shareButton = card.querySelector('.card-actions mwc-icon');
+
+          expect(readMoreButton, 'read more button').to.exist;
+          expect(shareButton, 'share button').to.exist;
+
+          let _readMore = sinon.spy()
+          let _share = sinon.spy();
+          sinon.replace(view, '_readMore', _readMore);
+          sinon.replace(view, '_share', _share);
+
+          readMoreButton.click();
+          expect(_readMore, 'read more').to.have.been.calledOnceWith(data[0]);
+
+          shareButton.click();
+          expect(_share, 'share').to.have.been.calledOnceWith(data[0]);
         });
       });
     </script>
