@@ -56,13 +56,21 @@ class NewsView extends connect(store)(PageViewElement) {
             <p>${item.text}</p>
           </div>
           <div class="card-actions">
-            <mwc-button raised icon="chevron_right" @click="${() => window.location = "https://www.duttweiler.de"+item.url}">Lesen</mwc-button>
-            <mwc-icon @click="${() => alert("Sharing not yet implemented")}">share</mwc-icon>
+            <mwc-button raised icon="chevron_right" @click="${() => this._readMore(item)}">Lesen</mwc-button>
+            <mwc-icon @click="${() => this._share(item)}">share</mwc-icon>
           </div>
         </paper-card>
       `)}
       <mwc-fab icon="refresh" label="Aktualisieren" @click="${this._refresh}" .exited="${this._isFetching}"></mwc-fab>
     `
+  }
+
+  _readMore(item) {
+    window.location = `https://www.duttweiler.de${item.url}`;
+  }
+
+  _share(item) {
+    alert("Sharing not implemented yet...");
   }
 
   _refresh() {

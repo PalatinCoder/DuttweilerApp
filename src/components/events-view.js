@@ -63,14 +63,26 @@ class EventsView extends connect(store)(PageViewElement) {
             ${item.host ? html`<div><mwc-icon>people</mwc-icon> ${item.host}</div>` :''}
           </div>
           <div class="card-actions">
-            ${item.link ? html`<mwc-icon @click="${() => window.location = "https://www.duttweiler.de"+item.link}">public</mwc-icon>`:''}
-            <mwc-icon @click="${() => alert("Sharing not yet implemented")}">share</mwc-icon>
-            <mwc-icon @click="${() => alert("Add to calendar not yet implemented")}">event</mwc-icon>
+            ${item.link ? html`<mwc-icon @click="${() => this._showDetailsFor(item)}">public</mwc-icon>`:''}
+            <mwc-icon @click="${() => this._share(item)}">share</mwc-icon>
+            <mwc-icon @click="${() => this._addToCalendar(item)}">event</mwc-icon>
           </div>
         </paper-card>
       `)}
       <mwc-fab icon="refresh" label="Aktualisieren" @click="${this._refresh}" .exited="${this._isFetching}"></mwc-fab>
     `
+  }
+
+  _showDetailsFor(item) {
+    window.location = `https://www.duttweiler.de${item.link}`;
+  }
+
+  _share(item) {
+    alert("Sharing not yet implemented");
+  }
+
+  _addToCalendar(item) {
+    alert("Add to calendar not yet implemented");
   }
 
   _refresh() {
