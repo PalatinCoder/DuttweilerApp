@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>events</title>
+
+    <script>
+      // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+      // https://github.com/reactjs/redux/issues/2907
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
+
+    <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script src="../../node_modules/sinon/pkg/sinon.js"></script>
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/wct-mocha/wct-mocha.js"></script>
+  </head>
+  <body>
+    <test-fixture id="events">
+      <template>
+        <events-view active></events-view>
+      </template>
+    </test-fixture>
+
+    <script type="module">
+      import '@polymer/test-fixture';
+
+      import '../../src/components/events-view.js';
+      import { events_items } from '../../mock-api/data/events.js';
+
+      suite('events list', function() {
+        let view;
+
+        setup(() => {
+          view = fixture('events');
+          // replace firstUpdated() to avoid dispatching the request to the api
+          sinon.replace(view, 'firstUpdated', () => { });
+        });
+
+        test('list is complete', done => {
+          view._items = events_items;
+          flush(() => {
+            let cards = view.shadowRoot.querySelectorAll('paper-card');
+            assert.lengthOf(cards, events_items.length, 'the number of cards does not equal the number of items');
+            done();
+          });
+        });
+
+        test('empty list', done => {
+          view._items = [];
+          flush(() => {
+            let msg = view.shadowRoot.querySelector('p.empty-list');
+            expect(msg, 'no error message').to.exist;
+            done();
+          });
+        });
+      });
+
+      suite('event item', function() {
+        let view;
+        var data = events_items.slice(9,10);
+
+        setup(() => {
+          view = fixture('events');
+          sinon.replace(view, 'firstUpdated', () => { });
+          view._items = data;
+          return view.updateComplete;
+        });
+
+        test('card content', () => {
+          let card = view.shadowRoot.querySelector('paper-card');
+          let cardContent = card.querySelector('.card-content').innerText;
+          expect(card.heading).to.equal(data[0].title, 'card heading is not the title');
+          expect(cardContent).to.include(data[0].startDate, 'card does not include correct start date');
+          expect(cardContent).to.include(data[0].location, 'card does not include correct location');
+          expect(cardContent).to.include(data[0].host, 'card does not include correct host');
+        });
+
+        test('card actions', () => {
+          let card = view.shadowRoot.querySelector('paper-card');
+          let actionButtons = card.querySelectorAll('.card-actions mwc-icon');
+
+          expect(actionButtons).to.have.lengthOf(3);
+
+          let _details = sinon.fake();
+          let _share = sinon.fake();
+          let _addToCalendar = sinon.fake();
+          sinon.replace(view, '_showDetailsFor', _details);
+          sinon.replace(view, '_share', _share);
+          sinon.replace(view, '_addToCalendar', _addToCalendar);
+
+          actionButtons[0].click();
+          expect(_details, 'details').to.have.been.calledOnceWith(data[0]);
+          actionButtons[1].click();
+          expect(_share, 'share').to.have.been.calledOnceWith(data[0]);
+          actionButtons[2].click();
+          expect(_addToCalendar, 'add to calendar').to.have.been.calledOnceWith(data[0]);
+        });
+
+        test('event without url has no share button');
+      });
+    </script>
+  </body>
+</html>
