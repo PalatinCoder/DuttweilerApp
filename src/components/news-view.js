@@ -98,7 +98,7 @@ class NewsView extends connect(store)(PageViewElement) {
     const news = state.dataByEndpoint['news'];
     if (news) {
       this._items = news.items;
-      this._isFetching = state.dataByEndpoint['news'].isFetching;
+      this._isFetching = news.isFetching;
     }
   }
 }

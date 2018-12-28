@@ -110,7 +110,7 @@ class EventsView extends connect(store)(PageViewElement) {
     const events = state.dataByEndpoint['events'];
     if (events) {
       this._items = events.items;
-      this._isFetching = state.dataByEndpoint['events'].isFetching;
+      this._isFetching = events.isFetching;
     }
   }
 }
