@@ -2,7 +2,7 @@
  * Handles all requests for data to the API
  */
 
-import { REQUEST_DATA, RECEIVE_DATA, INVALIDATE_DATA } from '../actions/api-data'
+import { REQUEST_DATA, RECEIVE_DATA, INVALIDATE_DATA, FAIL_DATA } from '../actions/api-data'
 
 const data = (
     state = {
@@ -20,6 +20,8 @@ const data = (
                 isFetching: true,
                 didInvalidate: false
             });
+        case FAIL_DATA:
+            return Object.assign({}, state, { isFetching: false });
         case RECEIVE_DATA:
             return Object.assign({}, state, {
                 isFetching: false,
@@ -34,6 +36,7 @@ const data = (
 
 export const dataByEndpoint = (state = {}, action) => {
     switch (action.type) {
+        case FAIL_DATA:
         case RECEIVE_DATA:
         case REQUEST_DATA:
         case INVALIDATE_DATA:

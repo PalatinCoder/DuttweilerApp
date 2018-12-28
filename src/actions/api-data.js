@@ -5,6 +5,7 @@
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const INVALIDATE_DATA = 'INVALIDATE_DATA';
+export const FAIL_DATA = 'FAIL_DATA';
 
 const requestData = (endpoint) => {
     return {
@@ -21,6 +22,13 @@ const receiveData = (endpoint, data) => {
     }
 }
 
+const failData = (endpoint) => {
+    return {
+        type: FAIL_DATA,
+        endpoint
+    }
+}
+
 export const invalidateData = (endpoint) => {
     return {
         type: INVALIDATE_DATA,
@@ -31,11 +39,9 @@ export const invalidateData = (endpoint) => {
 const fetchData = (endpoint) => (dispatch) => {
     dispatch(requestData(endpoint))
       return fetch(`${window.duttweilerapp.apiroot}/${endpoint}.json`)
-        .then(
-            response => response.json(),
-            error => console.log('ERR: ', error)
-        )
+        .then(response => response.json())
         .then(json => dispatch(receiveData(endpoint, json)))
+        .catch(ex => dispatch(failData(endpoint)))
 }
 
 const shouldFetchData = (state, endpoint) => {
