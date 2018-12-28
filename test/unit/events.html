@@ -101,7 +101,18 @@
           expect(_addToCalendar, 'add to calendar').to.have.been.calledOnceWith(data[0]);
         });
 
-        test('event without url has no share button');
+        test('event without a link has no details button', done => {
+          view._items = events_items.slice(8,9);
+
+          flush(() => {
+            let card = view.shadowRoot.querySelector('paper-card');
+            let actionButtons = card.querySelectorAll('.card-actions mwc-icon');
+
+            expect(actionButtons).to.have.lengthOf(2);
+
+            done();
+          });
+        });
       });
     </script>
   </body>
