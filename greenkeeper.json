@@ -2,12 +2,13 @@
   "groups": {
     "pwa": {
       "packages": [
-        "package.json"
+        "package.json",
+        "functions/package.json"
       ]
     },
-    "prpl-server": {
+    "mock-api": {
       "packages": [
-        "functions/package.json"
+        "mock-api/package.json"
       ]
     }
   }
