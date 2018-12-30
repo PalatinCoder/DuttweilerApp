@@ -32,7 +32,7 @@
       import {axeReport} from 'pwa-helpers/axe-report.js';
 
       import '../../src/components/news-view.js';
-      import { news_items } from '../../mock-api/data/news.js';
+      import * as news from './data/news.js';
 
       suite('news list', function() {
         let view;
@@ -44,10 +44,10 @@
         });
 
         test('list is complete', done => {
-          view._items = news_items;
+          view._items = news.list;
           flush(() => {
             let cards = view.shadowRoot.querySelectorAll('paper-card');
-            assert.lengthOf(cards, news_items.length, 'the number of cards does not equal the number of news items');
+            assert.lengthOf(cards, news.list.length, 'the number of cards does not equal the number of news items');
             done();
           });
         });
@@ -64,7 +64,7 @@
 
       suite('news item', function() {
         var view;
-        var data = news_items.slice(5,6);
+        var data = news.itemWithAnImage;
 
         setup(() => {
           view = fixture('news');
@@ -81,7 +81,7 @@
           expect(cardContent).to.include(data[0].subheadline, 'card does not show the subheadline');
           expect(cardContent).to.include(data[0].text, 'card does not have the correct text');
           expect(card.image).to.equal(data[0].imageUrl, 'image url is not correct');
-          expect(card.alt, 'image alt text').to.exist;
+          expect(card.alt, 'image alt text').to.equal(data[0].imageAlternativeText);
         });
 
         test('card actions', () => {

@@ -30,7 +30,7 @@
       import '@polymer/test-fixture';
 
       import '../../src/components/events-view.js';
-      import { events_items } from '../../mock-api/data/events.js';
+      import * as events from './data/events.js';
 
       suite('events list', function() {
         let view;
@@ -42,10 +42,10 @@
         });
 
         test('list is complete', done => {
-          view._items = events_items;
+          view._items = events.list;
           flush(() => {
             let cards = view.shadowRoot.querySelectorAll('paper-card');
-            assert.lengthOf(cards, events_items.length, 'the number of cards does not equal the number of items');
+            assert.lengthOf(cards, events.list.length, 'the number of cards does not equal the number of items');
             done();
           });
         });
@@ -62,7 +62,7 @@
 
       suite('event item', function() {
         let view;
-        var data = events_items.slice(9,10);
+        var data = events.itemWithLink;
 
         setup(() => {
           view = fixture('events');
@@ -102,7 +102,7 @@
         });
 
         test('event without a link has no details button', done => {
-          view._items = events_items.slice(8,9);
+          view._items = events.itemWithoutLink;
 
           flush(() => {
             let card = view.shadowRoot.querySelector('paper-card');
