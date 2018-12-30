@@ -1,4 +1,4 @@
-export const events_items = 
+module.exports = 
 [
   {
     "title": "Seniorenausflug",

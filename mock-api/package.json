@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "description": "Dummy für die API von duttweiler.de",
   "private": true,
-  "main": "loader.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node loader"
+    "start": "node server"
   },
   "author": "Jan Syring-Lingenfelder",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "express": "^4.16.3"
   }
 }

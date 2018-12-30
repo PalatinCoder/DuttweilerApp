@@ -1,4 +1,4 @@
-export const news_items = 
+module.exports =
 [
   {
     "uid": "node-psrtl3h7wnw7m",

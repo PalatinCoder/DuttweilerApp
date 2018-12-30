@@ -1,7 +1,6 @@
-import express from 'express';
-import { news_items } from "./data/news";
-import { events_items } from "./data/events";
-const server = express();
+const server = require('express')();
+const news_items = require('./data/news');
+const events_items = require('./data/events');
 
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
