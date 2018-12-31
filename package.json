@@ -9,10 +9,8 @@
   "repository": "PalatinCoder/DuttweilerApp",
   "scripts": {
     "start": "polymer serve",
-    "build": "npm run build:static",
-    "build:firebase": "polymer build --auto-base-path && gulp firebase",
-    "build:static": "polymer build",
-    "serve:static": "polymer serve --port 5000 build/es6-bundled",
+    "build": "polymer build --auto-base-path",
+    "build:firebase": "npm run build && gulp firebase",
     "test": "npm run test:unit && npm run test:integration",
     "test:integration": "mocha \"./test/integration/!(visual).js\" --timeout=10000",
     "test:unit": "polymer test --module-resolution=node --npm --expanded",
