@@ -1,20 +1,24 @@
 const puppeteer = require('puppeteer');
-const { startServer } = require('polyserve');
+const express = require('express');
+const prpl = require('prpl-server');
 const expect = require('chai').expect;
-const join = require('path').join;
 const news_items = require('../../mock-api/data/news');
 const events_items = require('../../mock-api/data/events');
 
 const appPort = 4444;
 const appUrl = `http://localhost:${appPort}`;
 
-describe('news view', function()  {
-    let polyserve, browser, page;
+let listener;
+before(async function() {
+    let server = express();
+    // Gotcha: build path is relative to the working directory, require is relative to this file
+    server.get('/*', prpl.makeHandler('./build', require('../../build/polymer.json')));
+    listener = server.listen(appPort);
+});
+after(() => listener.close());
 
-    before(async function() {
-        polyserve = await startServer({port: appPort, root:join(__dirname, '../..'), moduleResolution: 'node'});
-    });
-    after((done) => polyserve.close(done));
+describe('news view', function()  {
+    let browser, page;
 
     beforeEach(async function() {
         browser = await puppeteer.launch();
@@ -33,8 +37,7 @@ describe('news view', function()  {
                 req.continue();
             }
         });
-        await page.goto(`${appUrl}/news`);
-        await page.waitForResponse(res => res.url().endsWith('/news.json'));
+        await page.goto(`${appUrl}/news`, {waitUntil: ['domcontentloaded', 'networkidle0']});
     });
     afterEach(() => browser.close());
 
@@ -52,12 +55,7 @@ describe('news view', function()  {
 });
 
 describe('events view', function()  {
-    let polyserve, browser, page;
-
-    before(async function() {
-        polyserve = await startServer({port: appPort, root:join(__dirname, '../..'), moduleResolution: 'node'});
-    });
-    after((done) => polyserve.close(done));
+    let browser, page;
 
     beforeEach(async function() {
         browser = await puppeteer.launch();
@@ -76,8 +74,7 @@ describe('events view', function()  {
                 req.continue();
             }
         });
-        await page.goto(`${appUrl}/events`);
-        await page.waitForResponse(res => res.url().endsWith('/events.json'));
+        await page.goto(`${appUrl}/events`, {waitUntil: ['domcontentloaded', 'networkidle0']});
     });
     afterEach(() => browser.close());
 
