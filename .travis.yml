@@ -27,6 +27,10 @@ jobs:
         - sh -e /etc/init.d/xvfb start
       script: npm run test:unit
 
+    - name: "E2E Tests"
+      before_script: npm run build
+      script: npm run test:e2e
+
     - stage: deploy
       name: "Firebase PRPL-Server"
       if: tag IS present
