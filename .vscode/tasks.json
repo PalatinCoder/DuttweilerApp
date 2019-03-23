@@ -52,12 +52,6 @@
             "command": "npm run build:firebase ; firebase deploy",
             "problemMatcher": [],
             "group": "build"
-        },
-        {
-            "type": "npm",
-            "label": "Build",
-            "script": "build:static",
-            "problemMatcher": []
         }
     ]
 }
