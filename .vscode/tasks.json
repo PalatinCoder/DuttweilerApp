@@ -40,7 +40,7 @@
         {
             "type": "shell",
             "label": "Dev: Mock API",
-            "command": "node loader",
+            "command": "node server",
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}/mock-api"
