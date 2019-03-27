@@ -11,7 +11,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html } from '@polymer/lit-element';
+import { LitElement, html, css } from 'lit-element';
 
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-header/app-header.js';
@@ -32,118 +32,120 @@ import { store } from '../store.js';
 import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
+  static get styles() {
+    return css`
+    :host {
+      --app-drawer-width: 256px;
+      display: block;
+
+      --app-primary-color: #3f51b5;
+      --app-secondary-color: #303f9f;
+      --app-dark-text-color: var(--app-secondary-color);
+      --app-light-text-color: white;
+      --app-section-even-color: #f7f7f7;
+      --app-section-odd-color: white;
+
+      --app-header-background-color: white;
+      --app-header-text-color: var(--app-dark-text-color);
+      --app-header-selected-color: var(--app-primary-color);
+
+      --app-drawer-background-color: var(--app-secondary-color);
+      --app-drawer-text-color: var(--app-light-text-color);
+      --app-drawer-selected-color: #78909C;
+      --app-font-family-primary: 'Open Sans',sans-serif;
+      --app-font-family-secondary: 'Montserrat',sans-serif;
+    }
+    @media (min-width: 768px) {
+      :host {
+        --app-drawer-width: 384px;
+      }
+    }
+    @media (min-width: 1440px) {
+      /* large screen -> drawer is persistent, so we need some margin on the left to keep the content centered */
+      main { margin-left: var(--app-drawer-width); }
+      [main-title] { padding-left: var(--app-drawer-width);}
+    }
+
+    app-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      background-color: var(--app-header-background-color);
+      color: var(--app-header-text-color);
+      border-bottom: 1px solid #eee;
+    }
+
+    .toolbar-top {
+      background-color: var(--app-header-background-color);
+    }
+
+    [main-title] {
+      font-family: serif;
+      font-size: 30px;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      color: var(--app-header-text-color);
+      cursor: pointer;
+      height: 44px;
+      width: 44px;
+    }
+    
+    .wappen {
+      width: 30px;
+      height: 30px;
+      margin: 7px;
+    }
+
+    app-drawer {
+      /* Preventively elevate the drawer above everything else */
+      z-index: 999;
+    }
+
+    .drawer-list {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      background: var(--app-drawer-background-color);
+      position: relative;
+      font-family: var(--app-font-family-secondary);
+    }
+
+    .drawer-list > a {
+      display: block;
+      text-decoration: none;
+      color: var(--app-drawer-text-color);
+      line-height: 40px;
+      padding: 0 24px;
+    }
+
+    .drawer-list > a:focus, app-toolbar *:focus {
+      outline: none;
+    }
+
+    .drawer-list > a[selected] {
+      color: var(--app-drawer-selected-color);
+    }
+
+    .main-content {
+      padding: 16px;
+      padding-top: 64px;
+      min-height: 100vh;
+    }
+
+    .page:not([active]) {
+      display: none;
+    }
+    `;
+  }
   render() {
     // Anything that's related to rendering should be done in here.
     return html`
-    <style>
-      :host {
-        --app-drawer-width: 256px;
-        display: block;
-
-        --app-primary-color: #3f51b5;
-        --app-secondary-color: #303f9f;
-        --app-dark-text-color: var(--app-secondary-color);
-        --app-light-text-color: white;
-        --app-section-even-color: #f7f7f7;
-        --app-section-odd-color: white;
-
-        --app-header-background-color: white;
-        --app-header-text-color: var(--app-dark-text-color);
-        --app-header-selected-color: var(--app-primary-color);
-
-        --app-drawer-background-color: var(--app-secondary-color);
-        --app-drawer-text-color: var(--app-light-text-color);
-        --app-drawer-selected-color: #78909C;
-        --app-font-family-primary: 'Open Sans',sans-serif;
-        --app-font-family-secondary: 'Montserrat',sans-serif;
-      }
-      @media (min-width: 768px) {
-        :host {
-          --app-drawer-width: 384px;
-        }
-      }
-      @media (min-width: 1440px) {
-        /* large screen -> drawer is persistent, so we need some margin on the left to keep the content centered */
-        main { margin-left: var(--app-drawer-width); }
-        [main-title] { padding-left: var(--app-drawer-width);}
-      }
-
-      app-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        background-color: var(--app-header-background-color);
-        color: var(--app-header-text-color);
-        border-bottom: 1px solid #eee;
-      }
-
-      .toolbar-top {
-        background-color: var(--app-header-background-color);
-      }
-
-      [main-title] {
-        font-family: serif;
-        font-size: 30px;
-      }
-
-      .menu-btn {
-        background: none;
-        border: none;
-        color: var(--app-header-text-color);
-        cursor: pointer;
-        height: 44px;
-        width: 44px;
-      }
-      
-      .wappen {
-        width: 30px;
-        height: 30px;
-        margin: 7px;
-      }
-
-      app-drawer {
-        /* Preventively elevate the drawer above everything else */
-        z-index: 999;
-      }
-
-      .drawer-list {
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        padding: 24px;
-        background: var(--app-drawer-background-color);
-        position: relative;
-        font-family: var(--app-font-family-secondary);
-      }
-
-      .drawer-list > a {
-        display: block;
-        text-decoration: none;
-        color: var(--app-drawer-text-color);
-        line-height: 40px;
-        padding: 0 24px;
-      }
-
-      .drawer-list > a:focus, app-toolbar *:focus {
-        outline: none;
-      }
-
-      .drawer-list > a[selected] {
-        color: var(--app-drawer-selected-color);
-      }
-
-      .main-content {
-        padding: 16px;
-        padding-top: 64px;
-        min-height: 100vh;
-      }
-
-      .page:not([active]) {
-        display: none;
-      }
-    </style>
 
     <!-- Main content -->
     <main class="main-content">

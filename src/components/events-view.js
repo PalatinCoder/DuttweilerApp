@@ -1,4 +1,4 @@
-import { html } from '@polymer/lit-element';
+import { html, css } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { repeat } from 'lit-html/directives/repeat.js';
 import { PageViewElement } from './page-view-element.js';
@@ -9,48 +9,49 @@ import { Button } from "@material/mwc-button";
 import '@polymer/paper-card/paper-card.js';
 
 class EventsView extends connect(store)(PageViewElement) {
+  static get styles() {
+    return css`
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      paper-card {
+        margin: 1em;
+        width: calc(100% - 2em); /* - 2x margin */
+        max-width: 450px;
+        font-family: var(--app-font-family-secondary);
+      }
+      .card-content, .card-actions {
+        color: var(--secondary-text-color);
+        font-family: var(--app-font-family-primary);
+      }
+      .card-content mwc-icon {
+        margin-right: 0.5em;
+      } 
+      .card-content > div {
+        display: flex;
+        align-items: center;
+      }
+      .card-actions {
+        text-align: right;
+      }
+      .card-actions mwc-icon {
+        margin: 0 0.25em;
+        cursor: pointer;
+      }
+      mwc-fab {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+      }
+      .empty-list {
+        color: #757575;
+      }
+    `;
+  }
   render() {
     return html`
-      <style>
-        :host {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        paper-card {
-          margin: 1em;
-          width: calc(100% - 2em); /* - 2x margin */
-          max-width: 450px;
-          font-family: var(--app-font-family-secondary);
-        }
-        .card-content, .card-actions {
-          color: var(--secondary-text-color);
-          font-family: var(--app-font-family-primary);
-        }
-        .card-content mwc-icon {
-          margin-right: 0.5em;
-        } 
-        .card-content > div {
-          display: flex;
-          align-items: center;
-        }
-        .card-actions {
-          text-align: right;
-        }
-        .card-actions mwc-icon {
-          margin: 0 0.25em;
-          cursor: pointer;
-        }
-        mwc-fab {
-          position: fixed;
-          bottom: 24px;
-          right: 24px;
-        }
-        .empty-list {
-          color: #757575;
-        }
-      </style>
-
       ${this._items.length == 0 ? html`
         <p class="empty-list">Keine Daten vorhanden</p>
       ` : ''}

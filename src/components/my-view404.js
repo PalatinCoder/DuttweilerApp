@@ -8,15 +8,17 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html } from '@polymer/lit-element';
+import { html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element.js';
 
 class MyView404 extends PageViewElement {
+  static get styles() {
+    return css`
+      h2 { color: var(--app-dark-text-color); }
+    `;
+  }
   render() {
     return html`
-      <style>
-        h2 { color: var(--app-dark-text-color); }
-      </style>
       <section>
         <h2>Ups! Das ist ein 404</h2>
         <p>Die aufgerufene Seite existiert nicht. Gehe zurück zur 
