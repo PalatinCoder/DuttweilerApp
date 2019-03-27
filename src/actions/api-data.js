@@ -1,6 +1,7 @@
 /**
  * Handles all requests for data to the API
  */
+import { apiroot } from "../../environment";
 
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
@@ -38,7 +39,7 @@ export const invalidateData = (endpoint) => {
 
 const fetchData = (endpoint) => (dispatch) => {
     dispatch(requestData(endpoint))
-      return fetch(`${window.duttweilerapp.apiroot}/${endpoint}.json`)
+      return fetch(`${apiroot}${endpoint}.json`)
         .then(response => response.json())
         .then(json => dispatch(receiveData(endpoint, json)))
         .catch(ex => dispatch(failData(endpoint)))

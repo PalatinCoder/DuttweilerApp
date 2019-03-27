@@ -22,6 +22,7 @@
 
         import configureMockStore from 'redux-mock-store';
         import thunk from "redux-thunk";
+        import { apiroot } from "../../environment.js";
 
         describe('action creators', function () {
             it('creates an action to invalidate data', () => {
@@ -41,7 +42,6 @@
             var clock;
 
             beforeEach(() => {
-                window.duttweilerapp = { apiroot: `http://localhost` };
                 clock = sinon.useFakeTimers(Date.now());
             });
 
@@ -52,7 +52,7 @@
 
             it('creates RECEIVE_DATA when data for endpoint is successfully fetched', () => {
 
-                fetchMock.getOnce(`${window.duttweilerapp.apiroot}/${endpoint}.json`, {
+                fetchMock.getOnce(`${apiroot}${endpoint}.json`, {
                     body: testData,
                     headers: { 'content-type': 'application/json' }
                 });
@@ -70,7 +70,7 @@
             });
 
             it('creates FAIL_DATA when the request fails (http)', () => {
-                fetchMock.getOnce(`${window.duttweilerapp.apiroot}/${endpoint}.json`, 500);
+                fetchMock.getOnce(`${apiroot}${endpoint}.json`, 500);
 
                 const expectedActions = [
                     { type: actions.REQUEST_DATA, endpoint },

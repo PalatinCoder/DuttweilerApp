@@ -34,6 +34,12 @@ jobs:
     - stage: deploy
       name: "Firebase PRPL-Server"
       if: tag IS present
+      before_script:
+        # declare environment
+        - echo "export const apiroot = 'https://www.duttweiler.de/api/v1/'" > environment.js
+        - echo "export const build = '$TRAVIS_TAG'" >> environment.js
+        # replace dash with double-dash for shields.io version badge
+        - sed -i "2s/-/--/g" environment.js
       script: npm run build:firebase
       deploy: &firebase
         on:
