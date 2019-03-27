@@ -134,7 +134,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
     }
 
     .main-content {
-      padding: 16px;
       padding-top: 64px;
       min-height: 100vh;
       box-sizing: border-box;

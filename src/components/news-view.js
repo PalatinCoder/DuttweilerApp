@@ -7,6 +7,7 @@ import { fetchDataIfNeeded, invalidateData } from '../actions/api-data.js';
 import { Fab } from '@material/mwc-fab';
 import { Button } from "@material/mwc-button";
 import '@polymer/paper-card/paper-card.js';
+import '@polymer/paper-progress/paper-progress.js';
 
 class NewsView extends connect(store)(PageViewElement) {
   static get styles() {
@@ -41,10 +42,19 @@ class NewsView extends connect(store)(PageViewElement) {
       .empty-list {
         color: #757575;
       }
+
+      paper-progress {
+        width: 100%;
+        --paper-progress-active-color: var(--app-primary-color);
+        --paper-progress-container-color: #fff;
+      }
     `;
   }
   render() {
     return html`
+
+      <paper-progress ?indeterminate="${this._isFetching}" value="0"></paper-progress>
+
       ${this._items.length == 0 ? html`
         <p class="empty-list">Keine Daten vorhanden</p>        
       ` : ''}

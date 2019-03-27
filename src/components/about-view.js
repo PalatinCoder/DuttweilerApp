@@ -5,6 +5,7 @@ class AboutView extends PageViewElement {
   static get styles() {
     return css`
       section {
+        padding: 0 16px;
         max-width: 600px;
         margin: 0 auto;
       }
