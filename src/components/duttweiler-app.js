@@ -17,6 +17,7 @@ import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import { scroll } from '@polymer/app-layout/helpers/helpers.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
 import { Icon } from '@material/mwc-icon';
@@ -215,6 +216,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
         description: pageTitle
         // This object also takes an image property, that points to an img src.
       });
+      scroll({ top: 0, behavior: 'silent' });
     }
   }
 
