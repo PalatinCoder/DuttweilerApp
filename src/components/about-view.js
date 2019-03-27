@@ -1,5 +1,6 @@
 import { html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element.js';
+import { build as appVersion } from "../../environment";
 
 class AboutView extends PageViewElement {
   static get styles() {
@@ -18,6 +19,9 @@ class AboutView extends PageViewElement {
       <section>
         <h2>Über die DuttweilerApp</h2>
         <p>Die DuttweilerApp bietet Nachrichten und den Veranstaltungskalender von duttweiler.de für das Smartphone optimiert. Zusätzlich erweitert die App das reine Anzeigen der Daten um nützliche Funktionen, wie z.B. Veranstaltungen zu teilen oder direkt in den eigenen Kalender zu übernehmen. Am nützlichsten ist wohl die Möglichkeit, sich via Push-Nachrichten über neue Nachrichten informieren zu lassen und so immer auf dem Laufenden zu bleiben.</p>
+        <p style="text-align: center">
+          <img style="text-align: center" src="https:/img.shields.io/badge/version-${appVersion}-${appVersion == 'dev' ? 'orange' : 'green'}.svg?style=flat-square" alt="Version: ${appVersion}">
+        </p>
       </section>
       <section>
         <h2>Impressum</h2>
