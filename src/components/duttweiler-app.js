@@ -137,6 +137,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
       padding: 16px;
       padding-top: 64px;
       min-height: 100vh;
+      box-sizing: border-box;
     }
 
     .page:not([active]) {
@@ -157,7 +158,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     </main>
 
     <!-- Header -->
-    <app-header condenses reveals effects="waterfall">
+    <app-header condenses reveals shadow>
       <app-toolbar class="toolbar-top">
         <button class="menu-btn" title="Menu" @click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
         <div main-title>${this.appTitle}</div>
