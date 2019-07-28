@@ -16,8 +16,6 @@ import { LitElement, html, css } from 'lit-element';
 import { scroll } from '@polymer/app-layout/helpers/helpers.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
-import { Icon } from '@material/mwc-icon';
-
 import 'weightless/nav';
 import 'weightless/tab-group';
 import 'weightless/tab';

@@ -27,7 +27,7 @@ class EventsView extends connect(store)(PageViewElement) {
         color: var(--secondary-text-color);
         font-family: var(--font-family);
       }
-      .card-content mwc-icon {
+      .card-content wl-icon {
         margin-right: 0.5em;
       } 
       .card-content > div {
@@ -37,7 +37,7 @@ class EventsView extends connect(store)(PageViewElement) {
       .card-actions {
         text-align: right;
       }
-      .card-actions mwc-icon {
+      .card-actions wl-icon {
         margin: 0 0.25em;
         cursor: pointer;
       }
@@ -69,14 +69,14 @@ class EventsView extends connect(store)(PageViewElement) {
       ${repeat(this._items, (item) => html`
         <paper-card heading="${item.title}">
           <div class="card-content">
-            ${item.startDate ? html`<div><mwc-icon>schedule</mwc-icon> ${item.startDate}</div>` : ''}
-            ${item.location ? html`<div><mwc-icon>place</mwc-icon> ${item.location}</div>` :''}
-            ${item.host ? html`<div><mwc-icon>people</mwc-icon> ${item.host}</div>` :''}
+            ${item.startDate ? html`<div><wl-icon>schedule</wl-icon> ${item.startDate}</div>` : ''}
+            ${item.location ? html`<div><wl-icon>place</wl-icon> ${item.location}</div>` :''}
+            ${item.host ? html`<div><wl-icon>people</wl-icon> ${item.host}</div>` :''}
           </div>
           <div class="card-actions">
-            ${item.link ? html`<mwc-icon @click="${() => this._showDetailsFor(item)}">public</mwc-icon>`:''}
-            <mwc-icon @click="${() => this._share(item)}">share</mwc-icon>
-            <mwc-icon @click="${() => this._addToCalendar(item)}">event</mwc-icon>
+            ${item.link ? html`<wl-icon @click="${() => this._showDetailsFor(item)}">public</wl-icon>`:''}
+            <wl-icon @click="${() => this._share(item)}">share</wl-icon>
+            <wl-icon @click="${() => this._addToCalendar(item)}">event</wl-icon>
           </div>
         </paper-card>
       `)}

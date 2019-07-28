@@ -82,7 +82,7 @@
 
         test('card actions', () => {
           let card = view.shadowRoot.querySelector('paper-card');
-          let actionButtons = card.querySelectorAll('.card-actions mwc-icon');
+          let actionButtons = card.querySelectorAll('.card-actions wl-icon');
 
           expect(actionButtons).to.have.lengthOf(3);
 
@@ -106,7 +106,7 @@
 
           flush(() => {
             let card = view.shadowRoot.querySelector('paper-card');
-            let actionButtons = card.querySelectorAll('.card-actions mwc-icon');
+            let actionButtons = card.querySelectorAll('.card-actions wl-icon');
 
             expect(actionButtons).to.have.lengthOf(2);
 
