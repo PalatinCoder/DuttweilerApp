@@ -14,14 +14,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import { LitElement, html, css } from 'lit-element';
 
 import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import { scroll } from '@polymer/app-layout/helpers/helpers.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
 import { Icon } from '@material/mwc-icon';
 import './snack-bar.js';
+
+import 'weightless/nav';
 
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { installRouter } from 'pwa-helpers/router.js';
@@ -62,10 +61,7 @@ class DuttweilerApp extends connect(store)(LitElement) {
     }
     @media (min-width: 768px) {
       :host {
-<<<<<<< HEAD
         --app-drawer-width: 384px;
-=======
->>>>>>> 1f28d04... !! cleanup
         display: block;
       }
     }
@@ -110,12 +106,12 @@ class DuttweilerApp extends connect(store)(LitElement) {
       cursor: pointer;
       height: 44px;
       width: 44px;
+=======
+>>>>>>> b2397e1... refactor(app): replace top app bar with weightless
     }
     
     .wappen {
-      width: 30px;
       height: 30px;
-      margin: 7px;
     }
 
     app-drawer {
@@ -150,7 +146,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
     }
 
     .main-content {
-      padding-top: 64px;
       min-height: 100vh;
       box-sizing: border-box;
     }
@@ -158,6 +153,16 @@ class DuttweilerApp extends connect(store)(LitElement) {
     .page:not([active]) {
       display: none;
     }
+
+      wl-nav {
+        --nav-height: 56px;
+        --nav-padding: 16px;
+        --nav-title-margin: 32px;
+        font-family: serif;
+        --nav-title-font-size: 30px;
+        --nav-title-font-weight: 400;
+        --nav-color: var(--primary);
+      }
     `
     ]
   }
@@ -165,6 +170,15 @@ class DuttweilerApp extends connect(store)(LitElement) {
   render() {
     // Anything that's related to rendering should be done in here.
     return html`
+
+    <!-- Header -->
+    <!-- TODO: condeses and reveals -->
+    <wl-nav role="banner" shadow>
+      <div slot="left">
+        <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
+      </div>
+      <div slot="title">DuttweilerApp</div>
+    </wl-nav>
 
     <!-- Main content -->
     <main>
@@ -174,14 +188,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
       <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
     </main>
 
-    <!-- Header -->
-    <app-header condenses reveals shadow>
-      <app-toolbar class="toolbar-top">
-        <button class="menu-btn" title="Menu" @click="${_ => store.dispatch(updateDrawerState({opened: true}))}"><mwc-icon>menu</mwc-icon></button>
-        <div main-title>${this.appTitle}</div>
-        <img class="wappen" src="images/manifest/icon-96x96.png" alt="Wappen">
-      </app-toolbar>
-    </app-header>
 
     <!-- Drawer content -->
     <app-drawer swipe-open 
