@@ -31,10 +31,14 @@ import { updateMetadata } from 'pwa-helpers/metadata.js';
 
 import { store } from '../store.js';
 import { navigate, updateOffline, updateDrawerState } from '../actions/app.js';
+import { Theme, Typography } from './styles.js';
 
 class DuttweilerApp extends connect(store)(LitElement) {
   static get styles() {
-    return css`
+    return [
+      Theme,
+      Typography,
+      css`
     :host {
       --app-drawer-width: 256px;
       display: block;
@@ -58,7 +62,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
     }
     @media (min-width: 768px) {
       :host {
+<<<<<<< HEAD
         --app-drawer-width: 384px;
+=======
+>>>>>>> 1f28d04... !! cleanup
+        display: block;
       }
     }
     @media (min-width: 1440px) {
@@ -78,9 +86,17 @@ class DuttweilerApp extends connect(store)(LitElement) {
       border-bottom: 1px solid #eee;
     }
 
+<<<<<<< HEAD
     .toolbar-top {
       background-color: var(--app-header-background-color);
     }
+=======
+>>>>>>> 1f28d04... !! cleanup
+      main {
+        padding-bottom: 56px;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
 
     [main-title] {
       font-family: serif;
@@ -142,14 +158,16 @@ class DuttweilerApp extends connect(store)(LitElement) {
     .page:not([active]) {
       display: none;
     }
-    `;
+    `
+    ]
   }
+
   render() {
     // Anything that's related to rendering should be done in here.
     return html`
 
     <!-- Main content -->
-    <main class="main-content">
+    <main>
       <news-view class="page" ?active="${this._page === 'news'}"></news-view>
       <events-view class="page" ?active="${this._page === 'events'}"></events-view>
       <about-view class="page" ?active="${this._page === 'about'}"></about-view>
