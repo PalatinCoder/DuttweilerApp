@@ -21,19 +21,19 @@ class NewsView extends connect(store)(PageViewElement) {
         margin: 1em;
         width: calc(100% - 2em); /* - 2x margin */
         max-width: 450px;
-        font-family: var(--app-font-family-secondary);
+        font-family: var(--font-family-accent);
       }
       paper-card span {
         color: var(--secondary-text-color);
       }
-      .card-content p, .card-content span { font-family: var(--app-font-family-primary); }
+      .card-content p, .card-content span { font-family: var(--font-family); }
       .card-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
         color: var(--secondary-text-color);
       }
-      .card-actions mwc-icon { cursor: pointer; }
+      .card-actions wl-icon { cursor: pointer; }
       mwc-fab {
         position: fixed;
         bottom: 24px;
@@ -45,7 +45,7 @@ class NewsView extends connect(store)(PageViewElement) {
 
       paper-progress {
         width: 100%;
-        --paper-progress-active-color: var(--app-primary-color);
+        --paper-progress-active-color: var(--primary);
         --paper-progress-container-color: #fff;
       }
     `;
@@ -68,7 +68,7 @@ class NewsView extends connect(store)(PageViewElement) {
           </div>
           <div class="card-actions">
             <mwc-button raised icon="chevron_right" @click="${() => this._readMore(item)}">Lesen</mwc-button>
-            <mwc-icon @click="${() => this._share(item)}">share</mwc-icon>
+            <wl-icon @click="${() => this._share(item)}">share</wl-icon>
           </div>
         </paper-card>
       `)}

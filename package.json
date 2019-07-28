@@ -22,7 +22,6 @@
   "dependencies": {
     "@material/mwc-button": "^0.5.0",
     "@material/mwc-fab": "^0.5.0",
-    "@material/mwc-icon": "^0.5.0",
     "@polymer/app-layout": "^3.0.2",
     "@polymer/paper-card": "^3.0.1",
     "@polymer/paper-progress": "^3.0.1",
@@ -32,7 +31,8 @@
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "weightless": "0.0.34"
   },
   "devDependencies": {
     "@polymer/test-fixture": "^4.0.2",
