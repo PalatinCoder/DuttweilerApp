@@ -32,7 +32,8 @@
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "weightless": "0.0.34"
   },
   "devDependencies": {
     "@polymer/test-fixture": "^4.0.2",
