@@ -17,12 +17,12 @@ import { scroll } from '@polymer/app-layout/helpers/helpers.js';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 
 import { Icon } from '@material/mwc-icon';
-import './snack-bar.js';
 
 import 'weightless/nav';
 import 'weightless/tab-group';
 import 'weightless/tab';
 import 'weightless/icon';
+import 'weightless/snackbar';
 
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { installRouter } from 'pwa-helpers/router.js';
@@ -100,6 +100,14 @@ class DuttweilerApp extends connect(store)(LitElement) {
         font-size: 12px;
         line-height: 1;
       }
+
+      wl-snackbar {
+        position: fixed;
+        bottom: 64px; /* 56px bottom nav + 8px padding */
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px); /* width - padding */
+      }
     `
     ]
   }
@@ -145,8 +153,11 @@ class DuttweilerApp extends connect(store)(LitElement) {
       </wl-tab>
     </wl-tab-group>
 
-    <snack-bar ?active="${this._snackbarOpened}">
-        You are now ${this._offline ? 'offline' : 'online'}.</snack-bar>
+    <wl-snackbar>
+      <wl-icon slot="icon">${this._offline ? 'cloud_off' : 'cloud_queue'}</wl-icon>
+      <span>${this._offline ? 'Offline': 'Online'}betrieb</span>
+    </wl-snackbar>
+
     `;
   }
 
@@ -154,7 +165,6 @@ class DuttweilerApp extends connect(store)(LitElement) {
     return {
       appTitle: { type: String },
       _page: { type: String },
-      _snackbarOpened: { type: Boolean },
       _offline: { type: Boolean },
     }
   }
@@ -190,12 +200,15 @@ class DuttweilerApp extends connect(store)(LitElement) {
       });
       scroll({ top: 0, behavior: 'silent' });
     }
+
+    if(changedProps.has('_offline')) {
+      this.shadowRoot.querySelector('wl-snackbar').show();
+    }
   }
 
   stateChanged(state) {
     this._page = state.app.page;
     this._offline = state.app.offline;
-    this._snackbarOpened = state.app.snackbarOpened;
   }
 }
 

@@ -8,8 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { UPDATE_PAGE, UPDATE_OFFLINE,
-         OPEN_SNACKBAR, CLOSE_SNACKBAR } from '../actions/app.js';
+import { UPDATE_PAGE, UPDATE_OFFLINE } from '../actions/app.js';
 
 const app = (state = {}, action) => {
   switch (action.type) {
@@ -22,16 +21,6 @@ const app = (state = {}, action) => {
       return {
         ...state,
         offline: action.offline
-      };
-    case OPEN_SNACKBAR:
-      return {
-        ...state,
-        snackbarOpened: true
-      };
-    case CLOSE_SNACKBAR:
-      return {
-        ...state,
-        snackbarOpened: false
       };
     default:
       return state;
