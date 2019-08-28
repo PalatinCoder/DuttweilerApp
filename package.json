@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@material/mwc-button": "^0.5.0",
-    "@material/mwc-fab": "^0.5.0",
+    "@material/mwc-fab": "^0.7.1",
     "@material/mwc-icon": "^0.5.0",
     "@polymer/app-layout": "^3.0.2",
     "@polymer/paper-card": "^3.0.1",
